@@ -10,5 +10,5 @@
 | SDK Language | Example framework           | Link                                     |
 | ------------ | --------------------------- | ---------------------------------------- |
 | TypeScript   | Next.js, TailwindCSS, Radix | [/typescript/nextjs](/typescript/nextjs) |
-| GO           | HTMX, TailwindCSS, GO-Fiber | [/go](/go)                               |
+| GO           | HTMX, TailwindCSS, GO-Fiber | [/go/fiber-htmx](/go/fiber-htmx)         |
 | Python       | Coming Soon..               | --                                       |

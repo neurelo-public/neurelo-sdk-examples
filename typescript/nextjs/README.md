@@ -1,12 +1,12 @@
 # Neurelo
 
-Netjs 14 SSR app using neurelo as a data source.
+Nextjs 14 SSR app using neurelo as a data source.
 
 ### Starting server
-```bash
-cp .env.example .env.local
 
+```bash
 # Fill in .env.local with your neurelo credentials
+cp .env.example .env.local
 
 npm install
 npm run format
