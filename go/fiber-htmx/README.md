@@ -16,6 +16,9 @@ unzip ./specs/<file_name>.zip -d ./pkg/neurelo_sdk
 ### Starting server
 
 ```bash
+# Fill in the .env file with your credentials.
+cp .env.example .env
+
 go run main.go
 
 # For development, First install go-air locally.
