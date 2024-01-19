@@ -22,5 +22,3 @@ go run main.go
 # Air is a development tool for Go apps.
 air
 ```
-
-## Demo:
