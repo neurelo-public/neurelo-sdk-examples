@@ -8,11 +8,6 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write src/",
-    "gen:types": "openapi --input='./neurelo/old-booking-system-859e7e1cf8e5-rest.json' --output='./src/neurelo-sdk' --client=axios --indent=2 --useOptions && npm run format",
-    "gen:pkg": "npm run gen:types2 && npm run git:init && npm run pkg:only",
-    "gen:types2": "rm -r ./src/neurelo-sdk || openapi-generator generate -g typescript-axios --package-name neurelo -t ./openapi-template -i './neurelo/neurelo-ts-sdk-c295d4c24369-openapi.json' -o './src/neurelo-sdk' --global-property apis,models,modelDocs=false,modelTests=false,apiTests=false,supportingFiles --additional-properties supportsES6=true && cp ./openapi-template/README.md ./src/neurelo-sdk/",
-    "git:init": "cd ./src/neurelo-sdk && npm init --init-author-name='neurelo' --init-author-url='https://neurelo.com' --init-version='0.0.1' --yes && npm i --save axios@1.6.2 && cd ./../../",
-    "pkg:only": "cd ./src/neurelo-sdk && npm pack --pack-destination='./../../' && cd ./../.. && npm i ./neurelo-sdk-0.0.1.tgz && rm -r ./src/neurelo-sdk",
     "disable:telemetry": "npx next telemetry disable"
   },
   "dependencies": {
@@ -28,7 +23,6 @@
     "lucide-react": "^0.289.0",
     "neurelo-sdk": "file:neurelo-sdk-typescript-cmt_8c6763.tgz",
     "next": "14.0.0",
-    "openapi-typescript-codegen": "^0.25.0",
     "prettier": "^3.0.3",
     "prettier-plugin-organize-imports": "^3.2.3",
     "react": "^18",
