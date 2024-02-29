@@ -5,7 +5,7 @@ import { FilmApiService, FilmUpdateInput } from 'neurelo-sdk';
 
 const getOneFilm = async ({ searchParams: { filmId } }: { searchParams: { filmId: string } }) => {
   try {
-    const res = await FilmApiService.findFilmById(filmId);
+    const res = await FilmApiService.findFilmByFilmId(filmId);
 
     return {
       data: res.data?.data,
@@ -22,7 +22,7 @@ const updateFilm = async ({ filmId, ...props }: FilmUpdateInput & { filmId: numb
   'use server';
 
   try {
-    const res = await FilmApiService.updateFilmById(String(filmId), props);
+    const res = await FilmApiService.updateFilmByFilmId(String(filmId), props);
 
     return {
       data: res.data?.data,
