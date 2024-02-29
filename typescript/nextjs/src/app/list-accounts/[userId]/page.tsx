@@ -6,7 +6,7 @@ import { AuthApiService, AuthUpdateInput } from 'neurelo-sdk';
 
 const getOneUser = async ({ searchParams: { userId } }: { searchParams: { userId: string } }) => {
   try {
-    const res = await AuthApiService.findAuthById(userId);
+    const res = await AuthApiService.findAuthByUserId(userId);
 
     return {
       data: res.data?.data,
@@ -23,7 +23,7 @@ const updateAccount = async ({ userId, ...props }: AuthUpdateInput & { userId: s
   'use server';
 
   try {
-    const res = await AuthApiService.updateAuthById(userId, props);
+    const res = await AuthApiService.updateAuthByUserId(userId, props);
 
     return {
       data: res.data?.data,

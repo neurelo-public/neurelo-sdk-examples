@@ -1,4 +1,4 @@
-# Neurelo
+## Go Fiber-HTMX FullStack App
 
 Go htmx server side rendering using neurelo as a data source.
 
