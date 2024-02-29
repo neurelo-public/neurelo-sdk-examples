@@ -7,7 +7,7 @@ const TEXT = {
   title: "Neurelo Express-React Starter",
   description:
     "This is a simple starter for building full-stack applications with Express and React.",
-  module: "ReactES Module & Express CommonJs",
+  module: "React ES-Module & Express CommonJs",
 };
 
 export function HomePage() {
