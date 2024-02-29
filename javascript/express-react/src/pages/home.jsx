@@ -18,7 +18,7 @@ export function HomePage() {
     <div className="w-full h-full flex-1 text-center flex flex-col items-center justify-center select-none gap-3">
       <h1
         className="text-7xl font-thin mb-6
-        bg-gradient-conic from-orange-400 via-zinc-500 to-zinc-600
+        bg-gradient-to-br from-orange-400 via-zinc-500 to-zinc-600
         text-transparent bg-clip-text"
       >
         {TEXT.title}
