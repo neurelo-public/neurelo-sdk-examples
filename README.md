@@ -1,11 +1,11 @@
-# Neurelo SDK Examples:
+# Neurelo SDK Examples
 
-## Introduction:
+## Introduction
 
-- This repository contains usage examples for Neurelo-SDKs generated for various languages.
-- To get started you can download SDK from project documentation page by click on download button.
+- This repository contains usage examples for Neurelo SDKs generated for various languages
+- You can download the SDKs from the API documentation pages in your projects
 
-### Examples:
+### Examples
 
 | SDK Language | Example framework           | Link                                                   |
 | ------------ | --------------------------- | ------------------------------------------------------ |
