@@ -1,0 +1,191 @@
+{
+    "objects": {
+        "user": {
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "unique": true
+                },
+                "password": {
+                    "type": "string"
+                },
+                "birthdate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "nullable": true,
+                    "sourceType": "Date"
+                },
+                "fullname": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer",
+                    "identifier": true,
+                    "default": {
+                        "function": "autoincrement"
+                    }
+                },
+                "properties": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/objects/property"
+                    }
+                },
+                "bookings": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/objects/booking"
+                    }
+                }
+            }
+        },
+        "property": {
+            "properties": {
+                "features": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/enums/Feature"
+                    }
+                },
+                "n_beds": {
+                    "type": "integer"
+                },
+                "n_bathrooms": {
+                    "type": "integer"
+                },
+                "n_rooms": {
+                    "type": "integer"
+                },
+                "type": {
+                    "$ref": "#/enums/PropertyType",
+                    "default": {
+                        "value": "House"
+                    }
+                },
+                "address": {
+                    "type": "string"
+                },
+                "price_per_night": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string",
+                    "nullable": true
+                },
+                "name": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer",
+                    "identifier": true,
+                    "default": {
+                        "function": "autoincrement"
+                    }
+                },
+                "user": {
+                    "$ref": "#/objects/user",
+                    "relation": {
+                        "attrKey": [
+                            "user_id"
+                        ],
+                        "foreignAttrKey": [
+                            "id"
+                        ]
+                    }
+                },
+                "bookings": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/objects/booking"
+                    }
+                }
+            }
+        },
+        "booking": {
+            "properties": {
+                "applied_charges": {
+                    "type": "array",
+                    "items": {
+                        "type": "number",
+                        "format": "float"
+                    }
+                },
+                "total_price": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "res_end": {
+                    "type": "string",
+                    "format": "date-time",
+                    "sourceType": [
+                        "Timestamptz",
+                        3
+                    ]
+                },
+                "res_start": {
+                    "type": "string",
+                    "format": "date-time",
+                    "sourceType": [
+                        "Timestamptz",
+                        3
+                    ]
+                },
+                "property_id": {
+                    "type": "integer"
+                },
+                "user_id": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer",
+                    "identifier": true,
+                    "default": {
+                        "function": "autoincrement"
+                    }
+                },
+                "user": {
+                    "$ref": "#/objects/user",
+                    "relation": {
+                        "attrKey": [
+                            "user_id"
+                        ],
+                        "foreignAttrKey": [
+                            "id"
+                        ]
+                    }
+                },
+                "property": {
+                    "$ref": "#/objects/property",
+                    "relation": {
+                        "attrKey": [
+                            "property_id"
+                        ],
+                        "foreignAttrKey": [
+                            "id"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "enums": {
+        "Feature": [
+            "HotWater",
+            "Kitchen",
+            "AirConditioner",
+            "Internet",
+            "Garage",
+            "Garden",
+            "HotTub"
+        ],
+        "PropertyType": [
+            "Apartment",
+            "Loft",
+            "Room",
+            "House"
+        ]
+    }
+}
