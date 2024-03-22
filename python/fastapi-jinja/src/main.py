@@ -262,7 +262,6 @@ async def property_details(
     except Exception as e:
         return response_500(e)
 
-    # Figure out why this is None
     if not property.features:
         property.features = []
 
