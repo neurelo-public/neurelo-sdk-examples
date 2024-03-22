@@ -12,4 +12,4 @@
 | TypeScript   | Next.js, TailwindCSS, Radix | [typescript/nextjs](/typescript/nextjs)               |
 | Javascript   | React, Express, TailwindCSS | [javascript/express-react](/javascript/express-react) |
 | GO           | HTMX, TailwindCSS, GO-Fiber | [go/fiber-htmx](/go/fiber-htmx)                       |
-| Python       | FastAPI, Jinja, TailwindCSS | [python/fastapi-jinkja](/python/fastapi-jinja)        |
+| Python       | FastAPI, Jinja, TailwindCSS | [python/fastapi-jinja](/python/fastapi-jinja)        |
