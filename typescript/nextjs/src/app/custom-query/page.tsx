@@ -38,7 +38,7 @@ export default async function CustomListActorsPage({
   const sortBy = initialSortBy || SORT_ORDER.asc;
 
   const [data] = await useFetch<LocalActor[]>({
-    path: '/custom/FindActorsCaseI',
+    path: '/custom/findActorsCaseInsensitive',
     queryParams: {
       limit: PAGE_SIZE,
       offset: (pageNum - 1) * PAGE_SIZE,
@@ -75,21 +75,21 @@ export default async function CustomListActorsPage({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {data !== undefined && data?.length > 0
           ? data.map((actor) => (
-              <div
-                key={actor.actor_id}
-                className="p-4 rounded-lg bg-zinc-900 text-zinc-200
+            <div
+              key={actor.actor_id}
+              className="p-4 rounded-lg bg-zinc-900 text-zinc-200
             ring-1 ring-zinc-800 hover:bg-zinc-800 hover:ring-zinc-700">
-                <h2 className="text-xl font-medium w-full text-ellipsis text-zinc-300">
-                  {actor?.first_name || 'No first name'} {actor?.last_name || 'No last name'}
-                </h2>
+              <h2 className="text-xl font-medium w-full text-ellipsis text-zinc-300">
+                {actor?.first_name || 'No first name'} {actor?.last_name || 'No last name'}
+              </h2>
 
-                <p className="text-sm font-normal mt-1 line-clamp-3 text-zinc-500">
-                  {!!actor?.last_update
-                    ? `${formatDate(actor.last_update)} ${formatTimeShort(actor.last_update)}`
-                    : null}
-                </p>
-              </div>
-            ))
+              <p className="text-sm font-normal mt-1 line-clamp-3 text-zinc-500">
+                {!!actor?.last_update
+                  ? `${formatDate(actor.last_update)} ${formatTimeShort(actor.last_update)}`
+                  : null}
+              </p>
+            </div>
+          ))
           : null}
       </div>
 
