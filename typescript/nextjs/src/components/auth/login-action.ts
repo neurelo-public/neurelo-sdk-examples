@@ -2,6 +2,8 @@
 
 import { GenericError, SafeError } from '@/types/generic';
 import { Auth, AuthApiService } from 'neurelo-sdk';
+import bcrypt from "bcrypt";
+
 import { LoginForm } from './login-dialog';
 
 export type SafeAuth = Omit<Auth, 'password'>;
@@ -13,13 +15,14 @@ export async function loginServerSubmit(
     const res = await AuthApiService.findAuthByEmail(data.email);
     const userData = res.data?.data;
 
-    if (res.status === 200 && userData) {
+    if (res.status === 200 && userData && userData?.password) {
       if (String(userData?.deleted_at) !== 'null') {
         return [undefined, { message: 'Account has been deleted' }];
       }
 
       // Check password
-      if (userData.password !== data.password) {
+      const isPasswordMatch = await bcrypt.compare(data.password, userData.password);
+      if (!isPasswordMatch) {
         return [undefined, { message: 'Invalid password' }];
       }
 
