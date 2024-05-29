@@ -5,7 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 export default async function Loading() {
   return (
     <Page>
-      <PageTitle title="Custom Query" />
+      <PageTitle title="Custom Query Actors (Case-Insensitive Search)" />
 
       <div className="w-full">
         <Skeleton className="w-full h-10" />
@@ -25,8 +25,7 @@ export default async function Loading() {
           .map((_, i) => (
             <Skeleton
               key={i}
-              className="w-full h-20 rounded-lg"
-            >
+              className="w-full h-20 rounded-lg">
               <span className="sr-only">Loading...</span>
             </Skeleton>
           ))}
