@@ -4,6 +4,7 @@ Nextjs 14 SSR app using neurelo as a data source.
 
 ### Getting started
 
+- Check the docs for Neurelo-SDK [here](https://docs.neurelo.com/sdks/typescript-javascript-sdk)
 - You can use any nextjs example by providing options for create-next-app
 
 ```bash

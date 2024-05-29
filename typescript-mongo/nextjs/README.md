@@ -4,6 +4,7 @@ Nextjs 14 SSR app using neurelo as a data source.
 
 ### Getting started
 
+- Check the docs for Neurelo-SDK [here](https://docs.neurelo.com/sdks/typescript-javascript-sdk)
 - You will need to add schema from [neurelo-schema-definition.json](./schema/neurelo-schema-definition.json) to your project definition.
 - You will need to add two custom queries to your project definition. [Directory](./schema/)
 
