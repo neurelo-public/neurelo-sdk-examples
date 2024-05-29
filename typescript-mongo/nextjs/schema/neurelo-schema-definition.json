@@ -1,0 +1,118 @@
+{
+  "objects": {
+    "film": {
+      "properties": {
+        "rating": {
+          "$ref": "#/enums/mpaa_rating",
+          "default": {
+            "value": "G"
+          }
+        },
+        "title": {
+          "type": "string"
+        },
+        "replacement_cost": {
+          "type": "string",
+          "format": "decimal"
+        },
+        "rental_rate": {
+          "type": "string",
+          "format": "decimal"
+        },
+        "rental_duration": {
+          "type": "integer"
+        },
+        "release_year": {
+          "type": "integer"
+        },
+        "length": {
+          "type": "integer"
+        },
+        "last_update": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "film_id": {
+          "type": "string",
+          "identifier": true,
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          }
+        }
+      }
+    },
+    "actor": {
+      "properties": {
+        "last_update": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "actor_id": {
+          "type": "string",
+          "identifier": true,
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          }
+        }
+      }
+    },
+    "auth": {
+      "properties": {
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "date-time",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "unique": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string",
+          "identifier": true,
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          }
+        }
+      }
+    }
+  },
+  "innerObjects": {},
+  "enums": {
+    "mpaa_rating": [
+      "NC_17",
+      "R",
+      "PG_13",
+      "PG",
+      "G"
+    ]
+  }
+}
