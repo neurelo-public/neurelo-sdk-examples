@@ -8,7 +8,7 @@ import { AggregateFilmsCustomQuery, ITEMS_ORDER_BY } from '@/types/film';
 import { SORT_ORDER, SortOrder } from '@/types/generic';
 import { Film } from 'neurelo-sdk';
 
-const PAGE_SIZE = 32;
+const PAGE_SIZE = 16;
 
 const FIND_FILMS_CASE_INSENSITIVE = '/custom/findFilmsCaseInsensitive';
 const AGG_FILMS_CASE_INSENSITIVE = '/custom/aggFilmsCaseInsensitive';
