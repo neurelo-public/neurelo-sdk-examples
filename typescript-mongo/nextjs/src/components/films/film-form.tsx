@@ -29,13 +29,13 @@ export const FilmForm = ({
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     setIsLoading(true);
     event.preventDefault();
-    if (film.film_id === undefined) return;
+    if (film.id === undefined) return;
 
     const formData = new FormData(event.currentTarget);
     const jsonData = Object.fromEntries(formData.entries());
 
     await updateFilm({
-      filmId: film.film_id,
+      filmId: film.id,
       ...jsonData,
     });
     setIsLoading(false);
@@ -53,7 +53,7 @@ export const FilmForm = ({
           ref: null,
           name: 'filmId',
           placeholder: 'No Film Id',
-          value: film.film_id,
+          value: film.id,
           type: 'text',
           disabled: true,
           required: true,
@@ -88,9 +88,9 @@ export const FilmForm = ({
         label="Rental Rate"
         inputProps={{
           ref: null,
-          name: 'rental_rate',
+          name: 'rentalRate',
           placeholder: '---',
-          defaultValue: film.rental_rate,
+          defaultValue: film.rentalRate,
           type: 'number',
           required: true,
         }}
@@ -98,7 +98,7 @@ export const FilmForm = ({
 
       <div className="flex flex-row items-center justify-between gap-2 text-sm leading-none mt-3">
         <span className="py-1 px-2 rounded-full bg-sky-950 border border-sky-600 text-sky-300">
-          {film.release_year}
+          {film.releaseYear}
         </span>
       </div>
 

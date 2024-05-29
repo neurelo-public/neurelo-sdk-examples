@@ -1,73 +1,5 @@
 {
   "objects": {
-    "film": {
-      "properties": {
-        "rating": {
-          "$ref": "#/enums/mpaa_rating",
-          "default": {
-            "value": "G"
-          }
-        },
-        "title": {
-          "type": "string"
-        },
-        "replacement_cost": {
-          "type": "string",
-          "format": "decimal"
-        },
-        "rental_rate": {
-          "type": "string",
-          "format": "decimal"
-        },
-        "rental_duration": {
-          "type": "integer"
-        },
-        "release_year": {
-          "type": "integer"
-        },
-        "length": {
-          "type": "integer"
-        },
-        "last_update": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "description": {
-          "type": "string"
-        },
-        "film_id": {
-          "type": "string",
-          "identifier": true,
-          "sourceName": "_id",
-          "sourceType": "ObjectId",
-          "default": {
-            "function": "auto"
-          }
-        }
-      }
-    },
-    "actor": {
-      "properties": {
-        "last_update": {
-          "type": "string"
-        },
-        "last_name": {
-          "type": "string"
-        },
-        "first_name": {
-          "type": "string"
-        },
-        "actor_id": {
-          "type": "string",
-          "identifier": true,
-          "sourceName": "_id",
-          "sourceType": "ObjectId",
-          "default": {
-            "function": "auto"
-          }
-        }
-      }
-    },
     "auth": {
       "properties": {
         "updated_at": {
@@ -103,16 +35,738 @@
           }
         }
       }
+    },
+    "actor": {
+      "properties": {
+        "actorId": {
+          "type": "integer"
+        },
+        "filmActors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/innerObjects/ActorFilmActors"
+          }
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          },
+          "identifier": true
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date"
+        }
+      },
+      "constraints": [
+        {
+          "type": "index",
+          "property": [
+            "actorId"
+          ],
+          "sourceName": "actorId_1"
+        },
+        {
+          "type": "index",
+          "property": [
+            "filmActors.filmId"
+          ],
+          "sourceName": "filmActors.filmId_1"
+        }
+      ]
+    },
+    "address": {
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string",
+          "nullable": true
+        },
+        "addressId": {
+          "type": "integer"
+        },
+        "cityId": {
+          "type": "integer"
+        },
+        "district": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          },
+          "identifier": true
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        }
+      },
+      "constraints": [
+        {
+          "type": "index",
+          "property": [
+            "addressId"
+          ],
+          "sourceName": "addressId_1"
+        }
+      ]
+    },
+    "category": {
+      "properties": {
+        "categoryId": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string",
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          },
+          "identifier": true
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "constraints": [
+        {
+          "type": "index",
+          "property": [
+            "categoryId"
+          ],
+          "sourceName": "categoryId_1"
+        }
+      ]
+    },
+    "city": {
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "cityId": {
+          "type": "integer"
+        },
+        "countryId": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string",
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          },
+          "identifier": true
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date"
+        }
+      },
+      "constraints": [
+        {
+          "type": "index",
+          "property": [
+            "cityId"
+          ],
+          "sourceName": "cityId_1"
+        }
+      ]
+    },
+    "country": {
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "countryId": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string",
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          },
+          "identifier": true
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date"
+        }
+      },
+      "constraints": [
+        {
+          "type": "index",
+          "property": [
+            "countryId"
+          ],
+          "sourceName": "countryId_1"
+        }
+      ]
+    },
+    "customer": {
+      "properties": {
+        "active": {
+          "type": "integer"
+        },
+        "activebool": {
+          "type": "boolean"
+        },
+        "addressId": {
+          "type": "integer"
+        },
+        "createDate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date"
+        },
+        "customerId": {
+          "type": "integer"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          },
+          "identifier": true
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date"
+        },
+        "storeId": {
+          "type": "integer"
+        }
+      },
+      "constraints": [
+        {
+          "type": "index",
+          "property": [
+            "customerId"
+          ],
+          "sourceName": "customerId_1"
+        }
+      ]
+    },
+    "film": {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "filmId": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string",
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          },
+          "identifier": true
+        },
+        "languageId": {
+          "type": "integer"
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date"
+        },
+        "length": {
+          "type": "integer"
+        },
+        "rating": {
+          "type": "string"
+        },
+        "releaseYear": {
+          "type": "integer"
+        },
+        "rentalDuration": {
+          "type": "integer"
+        },
+        "rentalRate": {
+          "type": "string",
+          "format": "decimal"
+        },
+        "replacementCost": {
+          "type": "string",
+          "format": "decimal"
+        },
+        "specialFeatures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "constraints": [
+        {
+          "type": "index",
+          "property": [
+            "filmId"
+          ],
+          "sourceName": "filmId_1"
+        }
+      ]
+    },
+    "filmActor": {
+      "properties": {
+        "actorId": {
+          "type": "integer",
+          "nullable": true
+        },
+        "filmId": {
+          "type": "integer",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          },
+          "identifier": true
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date",
+          "nullable": true
+        }
+      },
+      "constraints": [
+        {
+          "type": "index",
+          "property": [
+            "actorId",
+            "filmId"
+          ],
+          "sourceName": "actorId_1_filmId_1"
+        }
+      ]
+    },
+    "filmCategory": {
+      "properties": {
+        "categoryId": {
+          "type": "integer"
+        },
+        "filmId": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string",
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          },
+          "identifier": true
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date"
+        }
+      },
+      "constraints": [
+        {
+          "type": "index",
+          "property": [
+            "filmId",
+            "categoryId"
+          ],
+          "sourceName": "filmId_1_categoryId_1"
+        }
+      ]
+    },
+    "inventory": {
+      "properties": {
+        "filmId": {
+          "type": "integer",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          },
+          "identifier": true
+        },
+        "inventoryId": {
+          "type": "integer",
+          "nullable": true
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date",
+          "nullable": true
+        },
+        "storeId": {
+          "type": "integer",
+          "nullable": true
+        }
+      },
+      "constraints": [
+        {
+          "type": "index",
+          "property": [
+            "inventoryId"
+          ],
+          "sourceName": "inventoryId_1"
+        }
+      ]
+    },
+    "language": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          },
+          "identifier": true
+        },
+        "languageId": {
+          "type": "integer"
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "constraints": [
+        {
+          "type": "index",
+          "property": [
+            "languageId"
+          ],
+          "sourceName": "languageId_1"
+        }
+      ]
+    },
+    "payment": {
+      "properties": {
+        "amount": {
+          "type": "string",
+          "format": "decimal",
+          "nullable": true
+        },
+        "customerId": {
+          "type": "integer",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          },
+          "identifier": true
+        },
+        "paymentDate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date",
+          "nullable": true
+        },
+        "paymentId": {
+          "type": "integer",
+          "nullable": true
+        },
+        "rentalId": {
+          "type": "integer",
+          "nullable": true
+        },
+        "staffId": {
+          "type": "integer",
+          "nullable": true
+        }
+      },
+      "constraints": [
+        {
+          "type": "index",
+          "property": [
+            "paymentId"
+          ],
+          "sourceName": "paymentId_1"
+        }
+      ]
+    },
+    "rental": {
+      "properties": {
+        "customerId": {
+          "type": "integer",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          },
+          "identifier": true
+        },
+        "inventoryId": {
+          "type": "integer",
+          "nullable": true
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date",
+          "nullable": true
+        },
+        "rentalDate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date",
+          "nullable": true
+        },
+        "rentalId": {
+          "type": "integer",
+          "nullable": true
+        },
+        "returnDate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date",
+          "nullable": true
+        },
+        "staffId": {
+          "type": "integer",
+          "nullable": true
+        }
+      },
+      "constraints": [
+        {
+          "type": "index",
+          "property": [
+            "rentalId"
+          ],
+          "sourceName": "rentalId_1"
+        }
+      ]
+    },
+    "staff": {
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "addressId": {
+          "type": "integer"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          },
+          "identifier": true
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date"
+        },
+        "password": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string",
+          "format": "bytes",
+          "nullable": true
+        },
+        "staffId": {
+          "type": "integer"
+        },
+        "storeId": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "constraints": [
+        {
+          "type": "index",
+          "property": [
+            "staffId"
+          ],
+          "sourceName": "staffId_1"
+        }
+      ]
+    },
+    "store": {
+      "properties": {
+        "addressId": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string",
+          "sourceName": "_id",
+          "sourceType": "ObjectId",
+          "default": {
+            "function": "auto"
+          },
+          "identifier": true
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date"
+        },
+        "managerStaffId": {
+          "type": "integer"
+        },
+        "storeId": {
+          "type": "integer"
+        }
+      },
+      "constraints": [
+        {
+          "type": "index",
+          "property": [
+            "storeId"
+          ],
+          "sourceName": "storeId_1"
+        }
+      ]
     }
   },
-  "innerObjects": {},
-  "enums": {
-    "mpaa_rating": [
-      "NC_17",
-      "R",
-      "PG_13",
-      "PG",
-      "G"
-    ]
+  "innerObjects": {
+    "ActorFilmActors": {
+      "properties": {
+        "actorId": {
+          "type": "integer"
+        },
+        "film": {
+          "$ref": "#/innerObjects/ActorFilmActorsFilm"
+        },
+        "filmId": {
+          "type": "integer"
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date"
+        }
+      }
+    },
+    "ActorFilmActorsFilm": {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "filmId": {
+          "type": "integer"
+        },
+        "languageId": {
+          "type": "integer"
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "sourceType": "Date"
+        },
+        "length": {
+          "type": "integer"
+        },
+        "rating": {
+          "type": "string"
+        },
+        "releaseYear": {
+          "type": "integer"
+        },
+        "rentalDuration": {
+          "type": "integer"
+        },
+        "rentalRate": {
+          "type": "string",
+          "format": "decimal"
+        },
+        "replacementCost": {
+          "type": "string",
+          "format": "decimal"
+        },
+        "specialFeatures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    }
   }
 }

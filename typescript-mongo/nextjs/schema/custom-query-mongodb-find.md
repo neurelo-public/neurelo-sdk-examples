@@ -16,14 +16,14 @@
   "filter": {
     "$or": [
       {
-        "first_name": {
-          "$regex": {{first_name}},
+        "firstName": {
+          "$regex": {{firstName}},
           "$options": "i"
         }
       },
       {
-        "last_name": {
-          "$regex": {{last_name}},
+        "lastName": {
+          "$regex": {{lastName}},
           "$options": "i"
         }
       }
@@ -36,7 +36,7 @@
 
 ## Variable Definitions:
 
-- first_name: `string`
-- last_name: `string`
+- firstName: `string`
+- lastName: `string`
 - limit: `number`
 - offset: `number`

@@ -10,11 +10,11 @@ Nextjs 14 SSR app using neurelo as a data source.
 - You can use any nextjs example by providing options for create-next-app
 
 ```bash
-npx create-next-app -e https://github.com/neurelo-public/neurelo-sdk-examples/tree/main/typescript-mongo/nextjs
+npx create-next-app -e https://github.com/neurelo-public/neurelo-sdk-examples/tree/main/typescript/nextjs
 # or
-yarn create next-app -e https://github.com/neurelo-public/neurelo-sdk-examples/tree/main/typescript-mongo/nextjs
+yarn create next-app -e https://github.com/neurelo-public/neurelo-sdk-examples/tree/main/typescript/nextjs
 # or
-pnpm create next-app -e https://github.com/neurelo-public/neurelo-sdk-examples/tree/main/typescript-mongo/nextjs
+pnpm create next-app -e https://github.com/neurelo-public/neurelo-sdk-examples/tree/main/typescript/nextjs
 ```
 
 > Note: You can view all the available options for create-next-app by running `npx create-next-app --help` or [nextjs documentation reference](https://nextjs.org/docs/app/api-reference/create-next-app#non-interactive)

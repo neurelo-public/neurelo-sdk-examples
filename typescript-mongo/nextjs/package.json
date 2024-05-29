@@ -23,7 +23,7 @@
     "clsx": "^2.0.0",
     "eslint-config-prettier": "^9.0.0",
     "lucide-react": "^0.289.0",
-    "neurelo-sdk": "file:neurelo-sdk-typescript-cmt_bfd9da.tgz",
+    "neurelo-sdk": "file:neurelo-sdk-typescript-cmt_d8f6a1.tgz",
     "next": "14.0.0",
     "prettier": "^3.0.3",
     "prettier-plugin-organize-imports": "^3.2.3",

@@ -6,7 +6,7 @@ export const FilmListCard = ({ film }: { film: Film }) => {
   return (
     <Link
       key={film.title}
-      href={`/list-films/${film.film_id}`}
+      href={`/list-films/${film.id}`}
       className="flex items-stretch justify-stretch rounded-lg bg-zinc-900 text-zinc-200
         ring-1 ring-zinc-800 hover:bg-zinc-800 hover:ring-zinc-700
         focus-visible:outline-none focus-visible:ring-zinc-600">
@@ -23,11 +23,11 @@ export const FilmListCard = ({ film }: { film: Film }) => {
 
         <div className="flex flex-row items-center justify-between gap-2 text-sm leading-none mt-3">
           <span className="py-1 px-2 rounded-full bg-sky-950 border border-sky-600 text-sky-300">
-            {film.release_year}
+            {film.releaseYear}
           </span>
           <div className="py-1 px-2 rounded-full text-sky-200 flex flex-row items-end gap-x-2 gap-y-0">
             <span className="text-lg font-semibold text-zinc-500 group-hover:text-zinc-700">
-              {film.rental_rate ? formatCurrencyString(film.rental_rate) : '--'}
+              {film.rentalRate ? formatCurrencyString(film.rentalRate) : '--'}
             </span>
           </div>
         </div>

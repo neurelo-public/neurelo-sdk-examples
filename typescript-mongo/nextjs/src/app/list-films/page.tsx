@@ -17,11 +17,11 @@ const itemsForOrderBy = [
   },
   {
     label: 'Film id',
-    value: 'film_id',
+    value: 'id',
   },
   {
     label: 'Last update',
-    value: 'last_update',
+    value: 'lastUpdate',
   },
   {
     label: 'Length',
@@ -29,19 +29,19 @@ const itemsForOrderBy = [
   },
   {
     label: 'Release year',
-    value: 'release_year',
+    value: 'releaseYear',
   },
   {
     label: 'Rental duration',
-    value: 'rental_duration',
+    value: 'rentalDuration',
   },
   {
     label: 'Rental rate',
-    value: 'rental_rate',
+    value: 'rentalRate',
   },
   {
     label: 'Replacement cost',
-    value: 'replacement_cost',
+    value: 'replacementCost',
   },
   {
     label: 'Title',
@@ -81,7 +81,7 @@ const getAllFilms = async ({
     );
 
     const resForTotal = await FilmApiService.aggregateByFilm(
-      { _count: ['film_id'] },
+      { _count: ['id'] },
       {
         OR: [
           {
@@ -103,7 +103,7 @@ const getAllFilms = async ({
 
     return {
       data: res.data?.data || [],
-      totalCount: resForTotal.data?.data?._count?.film_id || 0,
+      totalCount: resForTotal.data?.data?._count?.id || 0,
     };
   } catch (error) {
     console.error('Error fetching films from server : ', {
@@ -122,7 +122,7 @@ export default async function ListFilmsPage({
 }: {
   searchParams: { page: string; search: string; orderBy?: string; sortBy?: SortOrder };
 }) {
-  const orderBy = initialOrderBy || 'film_id';
+  const orderBy = initialOrderBy || 'id';
   const pageNum = Number.isInteger(Number(page)) ? Number(page) : 1;
   const sortBy = initialSortBy || SORT_ORDER.asc;
 
@@ -153,7 +153,7 @@ export default async function ListFilmsPage({
         orderBy={orderBy}
         showOrderBy
         itemsForOrderBy={itemsForOrderBy}
-        orderByDefaultValue="film_id"
+        orderByDefaultValue="id"
         sortBy={sortBy}
         showSortBy
       />
@@ -181,7 +181,7 @@ export default async function ListFilmsPage({
         pageSize={PAGE_SIZE}
         className="pb-16"
         orderBy={orderBy}
-        orderByDefaultValue="film_id"
+        orderByDefaultValue="id"
         sortBy={sortBy}
       />
     </Page>

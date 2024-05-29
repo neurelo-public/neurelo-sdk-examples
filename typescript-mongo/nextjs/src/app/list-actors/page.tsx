@@ -11,19 +11,19 @@ const PAGE_SIZE = 32;
 const itemsForOrderBy = [
   {
     label: 'Actor id',
-    value: 'actor_id',
+    value: 'id',
   },
   {
     label: 'First name',
-    value: 'first_name',
+    value: 'firstName',
   },
   {
     label: 'Last name',
-    value: 'last_name',
+    value: 'lastName',
   },
   {
     label: 'Last update',
-    value: 'last_update',
+    value: 'lastUpdate',
   },
 ];
 
@@ -42,12 +42,12 @@ const getAllActors = async ({
       {
         OR: [
           {
-            first_name: {
+            firstName: {
               contains: search,
             },
           },
           {
-            last_name: {
+            lastName: {
               contains: search,
             },
           },
@@ -59,16 +59,16 @@ const getAllActors = async ({
     );
 
     const resForTotal = await ActorApiService.aggregateByActor(
-      { _count: ['actor_id'] },
+      { _count: ['id'] },
       {
         OR: [
           {
-            first_name: {
+            firstName: {
               contains: search,
             },
           },
           {
-            last_name: {
+            lastName: {
               contains: search,
             },
           },
@@ -81,7 +81,7 @@ const getAllActors = async ({
 
     return {
       data: res.data?.data || [],
-      totalCount: resForTotal?.data?.data?._count?.actor_id || 0,
+      totalCount: resForTotal?.data?.data?._count?.id || 0,
     };
   } catch (error) {
     console.error('Error fetching actors from server : ', {
@@ -100,7 +100,7 @@ export default async function ListActorsPage({
 }: {
   searchParams: { page: string; search: string; orderBy?: string; sortBy?: SortOrder };
 }) {
-  const orderBy = initialOrderBy || 'actor_id';
+  const orderBy = initialOrderBy || 'id';
   const pageNum = Number.isInteger(Number(page)) ? Number(page) : 1;
   const sortBy = initialSortBy || SORT_ORDER.asc;
 
@@ -130,7 +130,7 @@ export default async function ListActorsPage({
         pageSize={PAGE_SIZE}
         itemsForOrderBy={itemsForOrderBy}
         showOrderBy
-        orderByDefaultValue="actor_id"
+        orderByDefaultValue="id"
         orderBy={orderBy}
         sortBy={sortBy}
         showSortBy
@@ -140,15 +140,15 @@ export default async function ListActorsPage({
         {data !== undefined && data?.length > 0
           ? data.map((actor) => (
               <div
-                key={actor.actor_id}
+                key={actor.id}
                 className="p-4 rounded-lg bg-zinc-900 text-zinc-200
                   ring-1 ring-zinc-800 hover:bg-zinc-800 hover:ring-zinc-700">
                 <h2 className="text-xl font-medium w-full text-ellipsis text-zinc-300">
-                  {actor?.first_name || '--'} {actor?.last_name || '--'}
+                  {actor?.firstName || '--'} {actor?.lastName || '--'}
                 </h2>
 
                 <p className="text-sm font-normal mt-1 line-clamp-3 text-zinc-500">
-                  {actor.last_update ? formatDate(actor.last_update) : '--- --, ----'}
+                  {actor.lastUpdate ? formatDate(actor.lastUpdate) : '--- --, ----'}
                 </p>
               </div>
             ))
@@ -163,7 +163,7 @@ export default async function ListActorsPage({
         pageSize={PAGE_SIZE}
         className="pb-16"
         orderBy={orderBy}
-        orderByDefaultValue="actor_id"
+        orderByDefaultValue="id"
         sortBy={sortBy}
       />
     </Page>

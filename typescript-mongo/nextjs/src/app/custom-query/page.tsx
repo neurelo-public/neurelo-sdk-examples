@@ -13,19 +13,19 @@ const PAGE_SIZE = 32;
 const itemsForOrderBy = [
   {
     label: 'Actor id',
-    value: 'actor_id',
+    value: 'id',
   },
   {
     label: 'First name',
-    value: 'first_name',
+    value: 'firstName',
   },
   {
     label: 'Last name',
-    value: 'last_name',
+    value: 'lastName',
   },
   {
     label: 'Last update',
-    value: 'last_update',
+    value: 'lastUpdate',
   },
 ];
 
@@ -34,25 +34,25 @@ export default async function CustomListActorsPage({
 }: {
   searchParams: { page: string; search: string; orderBy?: string; sortBy?: SortOrder };
 }) {
-  const orderBy = initialOrderBy || 'actor_id';
+  const orderBy = initialOrderBy || 'id';
   const pageNum = Number.isInteger(Number(page)) ? Number(page) : 1;
   const sortBy = initialSortBy || SORT_ORDER.asc;
 
-  const [dataFind] = await useFetch<Actor[]>({
+  const [dataFind] = await useFetch<(Actor & { lastUpdate: { $date: string } })[]>({
     path: '/custom/findActorsCaseInsensitive',
     queryParams: {
       limit: PAGE_SIZE,
       skip: (pageNum - 1) * PAGE_SIZE,
-      first_name: `.*${search || ''}.*`,
-      last_name: `.*${search || ''}.*`,
+      firstName: `.*${search || ''}.*`,
+      lastName: `.*${search || ''}.*`,
     },
   });
 
   const [dataAggregate] = await useFetch<AggregateActorCustomQuery>({
     path: '/custom/aggActorsCaseInsensitive',
     queryParams: {
-      first_name: `.*${search || ''}.*`,
-      last_name: `.*${search || ''}.*`,
+      firstName: `.*${search || ''}.*`,
+      lastName: `.*${search || ''}.*`,
     },
   });
 
@@ -60,7 +60,7 @@ export default async function CustomListActorsPage({
 
   return (
     <Page>
-      <PageTitle title="Custom Query" />
+      <PageTitle title="Custom Query (Case-Insensitive Search)" />
 
       <SearchInput
         value={search}
@@ -77,7 +77,7 @@ export default async function CustomListActorsPage({
         orderBy={orderBy}
         sortBy={sortBy}
         itemsForOrderBy={itemsForOrderBy}
-        orderByDefaultValue="actor_id"
+        orderByDefaultValue="id"
         totalCount={totalCount}
       />
 
@@ -85,16 +85,16 @@ export default async function CustomListActorsPage({
         {dataFind !== undefined && dataFind?.length > 0
           ? dataFind.map((actor) => (
               <div
-                key={actor.actor_id}
+                key={actor.id}
                 className="p-4 rounded-lg bg-zinc-900 text-zinc-200
             ring-1 ring-zinc-800 hover:bg-zinc-800 hover:ring-zinc-700">
                 <h2 className="text-xl font-medium w-full text-ellipsis text-zinc-300">
-                  {actor?.first_name || 'No first name'} {actor?.last_name || 'No last name'}
+                  {actor?.firstName || 'No first name'} {actor?.lastName || 'No last name'}
                 </h2>
 
                 <p className="text-sm font-normal mt-1 line-clamp-3 text-zinc-500">
-                  {!!actor?.last_update
-                    ? `${formatDate(actor.last_update)} ${formatTimeShort(actor.last_update)}`
+                  {!!actor?.lastUpdate?.['$date']
+                    ? `${formatDate(actor?.lastUpdate?.['$date'])} ${formatTimeShort(actor?.lastUpdate?.['$date'])}`
                     : null}
                 </p>
               </div>
@@ -111,7 +111,7 @@ export default async function CustomListActorsPage({
         sortBy={sortBy}
         className="pb-16"
         itemsForOrderBy={itemsForOrderBy}
-        orderByDefaultValue="actor_id"
+        orderByDefaultValue="id"
         totalCount={totalCount}
       />
     </Page>
