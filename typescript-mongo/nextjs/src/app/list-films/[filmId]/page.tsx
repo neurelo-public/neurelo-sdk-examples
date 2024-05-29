@@ -18,7 +18,7 @@ const getOneFilm = async ({ searchParams: { filmId } }: { searchParams: { filmId
   }
 };
 
-const updateFilm = async ({ filmId, ...props }: FilmUpdateInput & { filmId: number }) => {
+const updateFilm = async ({ filmId, ...props }: FilmUpdateInput & { filmId: string }) => {
   'use server';
 
   try {

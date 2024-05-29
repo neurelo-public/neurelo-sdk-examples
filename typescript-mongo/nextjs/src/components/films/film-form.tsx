@@ -14,7 +14,7 @@ export const FilmForm = ({
     filmId,
     ...props
   }: FilmUpdateInput & {
-    filmId: number;
+    filmId: string;
   }) => Promise<
     | {
         data: Film;
@@ -46,8 +46,7 @@ export const FilmForm = ({
     <form
       onSubmit={handleSubmit}
       className="p-4 rounded-lg bg-zinc-950 text-zinc-200
-              ring-1 ring-zinc-800 flex flex-col gap-y-2"
-    >
+              ring-1 ring-zinc-800 flex flex-col gap-y-2">
       <FormField
         label="Film Id"
         inputProps={{
@@ -118,8 +117,7 @@ export const FilmForm = ({
           size="lg"
           color="primary"
           className="bg-sky-500/30"
-          isLoading={isLoading}
-        >
+          isLoading={isLoading}>
           Update
         </Button>
       </div>
