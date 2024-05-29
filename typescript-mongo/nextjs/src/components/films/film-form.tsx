@@ -11,10 +11,10 @@ export const FilmForm = ({
 }: {
   film: Film;
   updateFilm: ({
-    filmId,
+    id,
     ...props
   }: FilmUpdateInput & {
-    filmId: string;
+    id: string;
   }) => Promise<
     | {
         data: Film;
@@ -35,7 +35,7 @@ export const FilmForm = ({
     const jsonData = Object.fromEntries(formData.entries());
 
     await updateFilm({
-      filmId: film.id,
+      id: film.id,
       ...jsonData,
     });
     setIsLoading(false);
@@ -51,7 +51,7 @@ export const FilmForm = ({
         label="Film Id"
         inputProps={{
           ref: null,
-          name: 'filmId',
+          name: 'id',
           placeholder: 'No Film Id',
           value: film.id,
           type: 'text',

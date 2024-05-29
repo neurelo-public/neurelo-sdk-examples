@@ -5,7 +5,7 @@ import { FilmApiService, FilmUpdateInput } from 'neurelo-sdk';
 
 const getOneFilm = async ({ searchParams: { filmId } }: { searchParams: { filmId: string } }) => {
   try {
-    const res = await FilmApiService.findFilmByFilmId(filmId);
+    const res = await FilmApiService.findFilmById(filmId);
 
     return {
       data: res.data?.data,
@@ -18,11 +18,11 @@ const getOneFilm = async ({ searchParams: { filmId } }: { searchParams: { filmId
   }
 };
 
-const updateFilm = async ({ filmId, ...props }: FilmUpdateInput & { filmId: string }) => {
+const updateFilm = async ({ id, ...props }: FilmUpdateInput & { id: string }) => {
   'use server';
 
   try {
-    const res = await FilmApiService.updateFilmByFilmId(String(filmId), props);
+    const res = await FilmApiService.updateFilmById(String(id), props);
 
     return {
       data: res.data?.data,
@@ -33,7 +33,7 @@ const updateFilm = async ({ filmId, ...props }: FilmUpdateInput & { filmId: stri
         data: { errors },
       },
     } = error as { response: { data: { errors: string[] } } };
-    console.error(`Error updating film ${filmId}`, errors);
+    console.error(`Error updating film ${id}`, errors);
 
     return {
       data: undefined,
