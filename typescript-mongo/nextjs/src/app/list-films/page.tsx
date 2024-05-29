@@ -4,50 +4,12 @@ import PageTitle from '@/components/page-level/page-title';
 import { Pagination } from '@/components/page-level/pagination';
 import SearchInput from '@/components/ui/search-input';
 import { Skeleton } from '@/components/ui/skeleton';
+import { ITEMS_ORDER_BY } from '@/types/film';
 import { GenericError, SORT_ORDER, SortOrder } from '@/types/generic';
 import { Film, FilmApiService, FilmOrderByWithRelationInput } from 'neurelo-sdk';
 import { Suspense } from 'react';
 
 const PAGE_SIZE = 16;
-
-const itemsForOrderBy = [
-  {
-    label: 'Description',
-    value: 'description',
-  },
-  {
-    label: 'Film id',
-    value: 'id',
-  },
-  {
-    label: 'Last update',
-    value: 'lastUpdate',
-  },
-  {
-    label: 'Length',
-    value: 'length',
-  },
-  {
-    label: 'Release year',
-    value: 'releaseYear',
-  },
-  {
-    label: 'Rental duration',
-    value: 'rentalDuration',
-  },
-  {
-    label: 'Rental rate',
-    value: 'rentalRate',
-  },
-  {
-    label: 'Replacement cost',
-    value: 'replacementCost',
-  },
-  {
-    label: 'Title',
-    value: 'title',
-  },
-];
 
 const getAllFilms = async ({
   pageNum,
@@ -152,7 +114,7 @@ export default async function ListFilmsPage({
         pageSize={PAGE_SIZE}
         orderBy={orderBy}
         showOrderBy
-        itemsForOrderBy={itemsForOrderBy}
+        itemsForOrderBy={ITEMS_ORDER_BY}
         orderByDefaultValue="id"
         sortBy={sortBy}
         showSortBy

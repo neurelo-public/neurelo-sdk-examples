@@ -8,3 +8,5 @@ export type SortOrder = (typeof SORT_ORDER)[keyof typeof SORT_ORDER];
 export type GenericError = { response: { data: { errors: [{ error: string }] } } };
 
 export type SafeError = { message?: string };
+
+export type OrderByItem = { label?: string; value?: string };

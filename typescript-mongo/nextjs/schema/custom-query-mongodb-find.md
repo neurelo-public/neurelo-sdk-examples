@@ -1,14 +1,14 @@
 # Custom Query for Actor
 
-## Query Name:
+### Query Name:
 
 `findActorsCaseInsensitive`
 
-## Query Method:
+### Query Method:
 
 `GET`
 
-## Query Body:
+### Query Body:
 
 ```json
 {
@@ -34,9 +34,53 @@
 }
 ```
 
-## Variable Definitions:
+### Variable Definitions:
 
 - firstName: `string`
 - lastName: `string`
+- limit: `number`
+- offset: `number`
+
+
+# Custom Query for Film
+
+### Query Name:
+
+`findFilmsCaseInsensitive`
+
+### Query Method:
+
+`GET`
+
+### Query Body:
+
+```json
+{
+  "find": "film",
+  "filter": {
+    "$or": [
+      {
+        "title": {
+          "$regex": {{title}},
+          "$options": "i"
+        }
+      },
+      {
+        "description": {
+          "$regex": {{description}},
+          "$options": "i"
+        }
+      }
+    ]
+  },
+  "limit": {{limit}},
+  "skip": {{skip}}
+}
+```
+
+### Variable Definitions:
+
+- title: `string`
+- description: `string`
 - limit: `number`
 - offset: `number`

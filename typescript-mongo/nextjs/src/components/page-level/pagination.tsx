@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib';
-import { SortOrder } from '@/types/generic';
+import { OrderByItem, SortOrder } from '@/types/generic';
 import { usePathname, useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import { Button } from '../ui/button';
@@ -33,7 +33,7 @@ export const Pagination = <T extends object>({
   totalCount?: number;
   showOrderBy?: boolean;
   showSortBy?: boolean;
-  itemsForOrderBy?: { label?: string; value?: string }[];
+  itemsForOrderBy?: OrderByItem[];
   orderByDefaultValue?: string;
 }) => {
   const router = useRouter();
@@ -105,8 +105,7 @@ export const Pagination = <T extends object>({
           <Button
             onClick={() => handlePageChange(page - 1)}
             disabled={page === 1}
-            className="rounded-none rounded-l-md"
-          >
+            className="rounded-none rounded-l-md">
             Prev
           </Button>
 
@@ -117,8 +116,7 @@ export const Pagination = <T extends object>({
 
           <div
             className="bg-zinc-900 text-zinc-100 font-bold h-full w-12 text-center leading-none
-            flex items-center justify-center"
-          >
+            flex items-center justify-center">
             <span className="w-12">{page}</span>
           </div>
 
@@ -130,8 +128,7 @@ export const Pagination = <T extends object>({
           <Button
             onClick={() => handlePageChange(page + 1)}
             disabled={page >= totalPages || totalPages === 0}
-            className="rounded-none rounded-r-md"
-          >
+            className="rounded-none rounded-r-md">
             Next
           </Button>
         </div>

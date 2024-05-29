@@ -5,34 +5,12 @@ import { Pagination } from '@/components/page-level/pagination';
 import { PreventAccess } from '@/components/ui/prevent-access';
 import SearchInput from '@/components/ui/search-input';
 import { Skeleton } from '@/components/ui/skeleton';
+import { ITEMS_ORDER_BY } from '@/types/account';
 import { GenericError, SORT_ORDER, SortOrder } from '@/types/generic';
 import { Auth, AuthApiService, AuthOrderByWithRelationInput } from 'neurelo-sdk';
 import { Suspense } from 'react';
 
 const PAGE_SIZE = 16;
-
-const itemsForOrderBy = [
-  {
-    label: 'User id',
-    value: 'user_id',
-  },
-  {
-    label: 'Name',
-    value: 'name',
-  },
-  {
-    label: 'Email',
-    value: 'email',
-  },
-  {
-    label: 'Created at',
-    value: 'created_at',
-  },
-  {
-    label: 'Updated at',
-    value: 'updated_at',
-  },
-];
 
 const getAllAccounts = async ({
   pageNum,
@@ -137,7 +115,7 @@ export default async function ListAccountsPage({
           pageSize={PAGE_SIZE}
           orderBy={orderBy}
           showOrderBy
-          itemsForOrderBy={itemsForOrderBy}
+          itemsForOrderBy={ITEMS_ORDER_BY}
           orderByDefaultValue="user_id"
           sortBy={sortBy}
           showSortBy

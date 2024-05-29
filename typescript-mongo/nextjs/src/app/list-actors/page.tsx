@@ -3,29 +3,11 @@ import PageTitle from '@/components/page-level/page-title';
 import { Pagination } from '@/components/page-level/pagination';
 import SearchInput from '@/components/ui/search-input';
 import { formatDate } from '@/lib';
+import { ITEMS_ORDER_BY } from '@/types/actor';
 import { GenericError, SORT_ORDER, SortOrder } from '@/types/generic';
 import { Actor, ActorApiService, ActorOrderByWithAggregationInput } from 'neurelo-sdk';
 
 const PAGE_SIZE = 32;
-
-const itemsForOrderBy = [
-  {
-    label: 'Actor id',
-    value: 'id',
-  },
-  {
-    label: 'First name',
-    value: 'firstName',
-  },
-  {
-    label: 'Last name',
-    value: 'lastName',
-  },
-  {
-    label: 'Last update',
-    value: 'lastUpdate',
-  },
-];
 
 const getAllActors = async ({
   pageNum,
@@ -128,7 +110,7 @@ export default async function ListActorsPage({
         data={data}
         totalCount={totalCount}
         pageSize={PAGE_SIZE}
-        itemsForOrderBy={itemsForOrderBy}
+        itemsForOrderBy={ITEMS_ORDER_BY}
         showOrderBy
         orderByDefaultValue="id"
         orderBy={orderBy}

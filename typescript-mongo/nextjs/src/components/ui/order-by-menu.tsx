@@ -1,5 +1,5 @@
 import { cn } from '@/lib';
-import { SortOrder } from '@/types/generic';
+import { OrderByItem, SortOrder } from '@/types/generic';
 import { ArrowUpDown } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -17,7 +17,7 @@ export const OrderByMenu = ({
   defaultValue?: string;
   search: string;
   page: number;
-  items: { label?: string; value?: string }[];
+  items: OrderByItem[];
   sortBy: SortOrder;
   value?: string;
 }) => {
@@ -53,8 +53,7 @@ export const OrderByMenu = ({
                 })}
                 size="sm"
                 color={orderBy === item.value ? 'warning' : 'default'}
-                onClick={() => handleSelected(item.value as string)}
-              >
+                onClick={() => handleSelected(item.value as string)}>
                 {item.label}
               </Button>
             ))

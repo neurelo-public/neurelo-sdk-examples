@@ -14,12 +14,16 @@ const NAVIGATION_LINKS = [
     href: '/list-films',
   },
   {
+    title: 'Custom Q Films',
+    href: '/custom-query-films',
+  },
+  {
     title: 'Actors',
     href: '/list-actors',
   },
   {
-    title: 'Custom Query',
-    href: '/custom-query',
+    title: 'Custom Q Actors',
+    href: '/custom-query-actors',
   },
   {
     title: 'Accounts',
