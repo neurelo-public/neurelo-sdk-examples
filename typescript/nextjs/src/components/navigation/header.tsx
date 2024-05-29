@@ -61,7 +61,7 @@ export default function Header() {
             <LoginAndRegister />
 
             <Link
-              href="https://github.com/neurelo-public/neurelo-sdk-examples"
+              href="https://github.com/neurelo-public/neurelo-sdk-examples/tree/main/typescript/nextjs"
               className="text-yellow-500 focus:underline decoration-sky-500"
               tabIndex={-1}
               target="_blank">
