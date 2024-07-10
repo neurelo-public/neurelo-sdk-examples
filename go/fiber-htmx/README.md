@@ -2,7 +2,7 @@
 
 Go htmx server side rendering using neurelo as a data source.
 
-## After downloading GO-SDK from Neurelo docs page.
+## Setup
 
 -   Set up a project in neurelo using the schema provided in the `./schema/neurelo-postgresql-schema.json` directory.
 -   After setting up your project, make sure you have a data source connected to your environment.
