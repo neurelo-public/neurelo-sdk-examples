@@ -2,90 +2,130 @@ package film
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"strings"
 
-	neurelo_sdk "github.com/neurelo-public/neurelo-sdk-examples/go-sdk"
+	neurelo_sdk "github.com/neurelo-public/neurelo-sdk-examples/go/pkg/neurelo_sdk"
 	lib "github.com/neurelo-public/neurelo-sdk-examples/go/src/lib"
 )
 
 func ReadAllFilmSvc(req GetAllFilmRequest) *[]neurelo_sdk.Film {
-    skip := (req.Page-1)*12
-    take := 12
-    trimmed_search := strings.TrimSpace(req.Search)
+	ctx := context.Background()
 
-    filter := neurelo_sdk.FilmWhereInput{}
+	skip := (req.Page - 1) * 12
+	take := 12
+	trimmed_search := strings.TrimSpace(req.Search)
 
-    if (trimmed_search != "") {
-        description := neurelo_sdk.NullableAddressScalarWhereInputAddress2{}
-        description.Set(&neurelo_sdk.AddressScalarWhereInputAddress2{
-            StringNullableFilter: &neurelo_sdk.StringNullableFilter{
-                Contains: &trimmed_search,
-            },
-        })
-        filter.OR = []neurelo_sdk.FilmWhereInput{
-            {
-                Title: &neurelo_sdk.ActorWhereInputFirstName{
-                    StringFilter: &neurelo_sdk.StringFilter{
-                        Contains: &trimmed_search,
-                    },
-                },
-            },
-            {
-                Description: description,
-            },
-        }
-    }
+	var filter neurelo_sdk.FilmWhereInput
 
-    find_actor := lib.NeureloClient.FilmAPI.FindFilm(context.Background()).Take(take).Skip(skip).Filter(filter);
+	if trimmed_search != "" {
+		// Example of how to use RawMessage to create a JSON object
+		title := &neurelo_sdk.FilmWhereInput_Title{}
+		title.UnmarshalJSON(json.RawMessage(`
+            {"contains":"` + trimmed_search + `"}
+        `))
 
-    res, _, err := find_actor.Execute()
-    if err != nil {
-        fmt.Println(err)
-        return nil
-    }
+		// Example of how to use RawMessage to create a JSON object
+		description := &neurelo_sdk.FilmWhereInput_Description{}
+		description.UnmarshalJSON(json.RawMessage(`
+            {"contains":"` + trimmed_search + `"}
+        `))
 
-	return &res.Data
+		filter = neurelo_sdk.FilmWhereInput{}
+		filter.OR = &[]neurelo_sdk.FilmWhereInput{
+			{
+				Title: title,
+			},
+			{
+				Description: description,
+			},
+		}
+	}
+
+	parameters := &neurelo_sdk.FindFilmParams{
+		Take:   &take,
+		Skip:   &skip,
+		Filter: &filter,
+	}
+
+	res, err := lib.ApiClient.FindFilm(ctx, parameters)
+	if err != nil {
+		panic(err)
+	}
+
+	parsed_res, err := neurelo_sdk.ParseFindFilmResponse(res)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(parsed_res.Body))
+
+	var films []neurelo_sdk.Film
+	for _, film := range parsed_res.JSON200.Data {
+		if film.SpecialFeatures != nil && len(*film.SpecialFeatures) > 4 {
+			// Limit 4 special features
+			new_special_features := *film.SpecialFeatures
+			new_special_features = new_special_features[:4]
+			film.SpecialFeatures = &new_special_features
+		}
+		films = append(films, film)
+	}
+	return &films
 }
 
-func GetTotalFilmSvc(req GetAllFilmRequest) *int {
-    trimmed_search := strings.TrimSpace(req.Search)
-    select_count := neurelo_sdk.FilmAggregateInput{
-        Count: []string{
-            "film_id",
-        },
-    }
+func GetTotalFilmSvc(req GetAllFilmRequest) *int32 {
+	ctx := context.Background()
 
-    filter := neurelo_sdk.FilmWhereInput{}
+	trimmed_search := strings.TrimSpace(req.Search)
 
-    if (trimmed_search != "") {
-        description := neurelo_sdk.NullableAddressScalarWhereInputAddress2{}
-        description.Set(&neurelo_sdk.AddressScalarWhereInputAddress2{
-            StringNullableFilter: &neurelo_sdk.StringNullableFilter{
-                Contains: &trimmed_search,
-            },
-        })
-        filter.OR = []neurelo_sdk.FilmWhereInput{
-            {
-                Title: &neurelo_sdk.ActorWhereInputFirstName{
-                    StringFilter: &neurelo_sdk.StringFilter{
-                        Contains: &trimmed_search,
-                    },
-                },
-            },
-            {
-                Description: description,
-            },
-        }
-    }
+	var filter *neurelo_sdk.FilmWhereInput
 
-    find_actor := lib.NeureloClient.FilmAPI.AggregateByFilm(context.Background()).Select_(select_count).Filter(filter);
+	select_ := neurelo_sdk.FilmAggregateInput{
+		Count: &[]neurelo_sdk.FilmAggregateInputCount{
+			"_all",
+		},
+	}
 
-    res, _, err := find_actor.Execute()
-    if err != nil {
-        fmt.Println(err)
-        return nil
-    }
+	parameters := &neurelo_sdk.AggregateByFilmParams{
+		Select: select_,
+	}
 
-	return res.Data.Count.FilmId
+	if trimmed_search != "" {
+		title := &neurelo_sdk.FilmWhereInput_Title{}
+		title.FromStringFilter(neurelo_sdk.StringFilter{
+			Contains: &trimmed_search,
+		})
+
+		description := &neurelo_sdk.FilmWhereInput_Description{}
+		description.FromStringNullableFilter(neurelo_sdk.StringNullableFilter{
+			Contains: &trimmed_search,
+		})
+
+		filter = &neurelo_sdk.FilmWhereInput{}
+		filter.OR = &[]neurelo_sdk.FilmWhereInput{
+			{
+				Title: title,
+			},
+			{
+				Description: description,
+			},
+		}
+
+		parameters.Filter = filter
+	}
+
+	res, err := lib.ApiClient.AggregateByFilm(ctx, parameters)
+	if err != nil {
+		panic(err)
+	}
+
+	parsed_res, err := neurelo_sdk.ParseAggregateByFilmResponse(res)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(parsed_res.Body))
+
+	return parsed_res.JSON200.Data.Count.All
 }

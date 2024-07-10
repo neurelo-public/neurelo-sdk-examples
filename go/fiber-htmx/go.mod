@@ -8,11 +8,12 @@ require (
 	github.com/gofiber/template/html/v2 v2.0.5
 	github.com/joho/godotenv v1.5.1
 	github.com/lib/pq v1.10.9
-	github.com/neurelo-public/neurelo-sdk-examples/go-sdk v0.0.1
+	github.com/oapi-codegen/runtime v1.1.1
 )
 
 require (
 	github.com/andybalholm/brotli v1.0.6 // indirect
+	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
 	github.com/gofiber/template v1.8.2 // indirect
 	github.com/gofiber/utils v1.1.0 // indirect
 	github.com/google/uuid v1.5.0 // indirect
@@ -26,5 +27,3 @@ require (
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	golang.org/x/sys v0.16.0 // indirect
 )
-
-replace github.com/neurelo-public/neurelo-sdk-examples/go-sdk => ./pkg/neurelo_sdk

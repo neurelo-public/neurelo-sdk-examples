@@ -4,15 +4,192 @@
         "title": "Neurelo API Spec",
         "version": "0"
     },
-    "servers": [
-        {
-            "url": "https://us-east-2.aws.neurelo.dev"
-        },
-        {
-            "url": "https://us-west-2.aws.neurelo.dev"
-        }
-    ],
+    "servers": [],
     "paths": {
+        "/custom/findActorsCaseInsensitive": {
+            "get": {
+                "tags": [
+                    "Custom"
+                ],
+                "description": "This endpoint executes the custom query findActorsCaseInsensitive",
+                "operationId": "findActorsCaseInsensitive",
+                "parameters": [
+                    {
+                        "name": "first_name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "first_name2",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "last_name2",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Query execution results",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "data"
+                                    ],
+                                    "properties": {
+                                        "data": {}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "errors"
+                                    ],
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/_ErrorResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "errors"
+                                    ],
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/_ErrorResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "errors"
+                                    ],
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/_ErrorResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "errors"
+                                    ],
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/_ErrorResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "Timed Out",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "errors"
+                                    ],
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/_ErrorResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/rest/actor": {
             "get": {
                 "tags": [
@@ -28407,105 +28584,6 @@
                 },
                 "additionalProperties": false
             },
-            "BytesNullableFilter": {
-                "type": "object",
-                "properties": {
-                    "eq": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
-                    },
-                    "equals": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
-                    },
-                    "in": {
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "format": "byte",
-                            "nullable": true
-                        }
-                    },
-                    "not": {
-                        "oneOf": [
-                            {
-                                "type": "string",
-                                "format": "byte",
-                                "nullable": true
-                            },
-                            {
-                                "$ref": "#/components/schemas/NestedBytesNullableFilter"
-                            }
-                        ],
-                        "nullable": true
-                    },
-                    "notIn": {
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "format": "byte",
-                            "nullable": true
-                        }
-                    }
-                },
-                "additionalProperties": false
-            },
-            "BytesNullableWithAggregatesFilter": {
-                "type": "object",
-                "properties": {
-                    "_count": {
-                        "$ref": "#/components/schemas/NestedIntNullableFilter"
-                    },
-                    "_max": {
-                        "$ref": "#/components/schemas/NestedBytesNullableFilter"
-                    },
-                    "_min": {
-                        "$ref": "#/components/schemas/NestedBytesNullableFilter"
-                    },
-                    "eq": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
-                    },
-                    "equals": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
-                    },
-                    "in": {
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "format": "byte",
-                            "nullable": true
-                        }
-                    },
-                    "not": {
-                        "oneOf": [
-                            {
-                                "type": "string",
-                                "format": "byte",
-                                "nullable": true
-                            },
-                            {
-                                "$ref": "#/components/schemas/NestedBytesNullableWithAggregatesFilter"
-                            }
-                        ],
-                        "nullable": true
-                    },
-                    "notIn": {
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "format": "byte",
-                            "nullable": true
-                        }
-                    }
-                },
-                "additionalProperties": false
-            },
             "CategoryAggregateInput": {
                 "type": "object",
                 "properties": {
@@ -28527,7 +28605,8 @@
                                 "_all",
                                 "category_id",
                                 "last_update",
-                                "name"
+                                "name",
+                                "sdgfdg"
                             ]
                         },
                         "minItems": 1
@@ -28539,7 +28618,8 @@
                             "enum": [
                                 "category_id",
                                 "last_update",
-                                "name"
+                                "name",
+                                "sdgfdg"
                             ]
                         },
                         "minItems": 1
@@ -28551,7 +28631,8 @@
                             "enum": [
                                 "category_id",
                                 "last_update",
-                                "name"
+                                "name",
+                                "sdgfdg"
                             ]
                         },
                         "minItems": 1
@@ -28599,6 +28680,10 @@
                     "name": {
                         "type": "integer",
                         "format": "int32"
+                    },
+                    "sdgfdg": {
+                        "type": "integer",
+                        "format": "int32"
                     }
                 },
                 "additionalProperties": false
@@ -28634,7 +28719,8 @@
                                 "_all",
                                 "category_id",
                                 "last_update",
-                                "name"
+                                "name",
+                                "sdgfdg"
                             ]
                         },
                         "minItems": 1
@@ -28646,7 +28732,8 @@
                             "enum": [
                                 "category_id",
                                 "last_update",
-                                "name"
+                                "name",
+                                "sdgfdg"
                             ]
                         },
                         "minItems": 1
@@ -28658,7 +28745,8 @@
                             "enum": [
                                 "category_id",
                                 "last_update",
-                                "name"
+                                "name",
+                                "sdgfdg"
                             ]
                         },
                         "minItems": 1
@@ -28680,6 +28768,9 @@
                         "type": "boolean"
                     },
                     "name": {
+                        "type": "boolean"
+                    },
+                    "sdgfdg": {
                         "type": "boolean"
                     }
                 },
@@ -28714,6 +28805,9 @@
                     },
                     "name": {
                         "type": "string"
+                    },
+                    "sdgfdg": {
+                        "type": "string"
                     }
                 },
                 "additionalProperties": false
@@ -28734,6 +28828,10 @@
                     "name": {
                         "type": "string",
                         "nullable": true
+                    },
+                    "sdgfdg": {
+                        "type": "string",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -28752,6 +28850,10 @@
                         "nullable": true
                     },
                     "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "sdgfdg": {
                         "type": "string",
                         "nullable": true
                     }
@@ -28775,7 +28877,8 @@
                 "enum": [
                     "category_id",
                     "last_update",
-                    "name"
+                    "name",
+                    "sdgfdg"
                 ]
             },
             "CategorySelectInput": {
@@ -28804,6 +28907,9 @@
                         "type": "boolean"
                     },
                     "name": {
+                        "type": "boolean"
+                    },
+                    "sdgfdg": {
                         "type": "boolean"
                     }
                 },
@@ -29549,7 +29655,6 @@
                                 "first_name",
                                 "last_name",
                                 "last_update",
-                                "random",
                                 "store_id"
                             ]
                         },
@@ -29569,7 +29674,6 @@
                                 "first_name",
                                 "last_name",
                                 "last_update",
-                                "random",
                                 "store_id"
                             ]
                         },
@@ -29589,7 +29693,6 @@
                                 "first_name",
                                 "last_name",
                                 "last_update",
-                                "random",
                                 "store_id"
                             ]
                         },
@@ -29681,10 +29784,6 @@
                         "type": "integer",
                         "format": "int32"
                     },
-                    "random": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
                     "store_id": {
                         "type": "integer",
                         "format": "int32"
@@ -29737,7 +29836,6 @@
                                 "first_name",
                                 "last_name",
                                 "last_update",
-                                "random",
                                 "store_id"
                             ]
                         },
@@ -29757,7 +29855,6 @@
                                 "first_name",
                                 "last_name",
                                 "last_update",
-                                "random",
                                 "store_id"
                             ]
                         },
@@ -29777,7 +29874,6 @@
                                 "first_name",
                                 "last_name",
                                 "last_update",
-                                "random",
                                 "store_id"
                             ]
                         },
@@ -29821,9 +29917,6 @@
                         "type": "boolean"
                     },
                     "last_update": {
-                        "type": "boolean"
-                    },
-                    "random": {
                         "type": "boolean"
                     },
                     "store_id": {
@@ -29885,9 +29978,6 @@
                         "type": "string",
                         "format": "date-time",
                         "nullable": true
-                    },
-                    "random": {
-                        "type": "string"
                     },
                     "store_id": {
                         "type": "integer",
@@ -29955,10 +30045,6 @@
                         "format": "date-time",
                         "nullable": true
                     },
-                    "random": {
-                        "type": "string",
-                        "nullable": true
-                    },
                     "store_id": {
                         "type": "integer",
                         "format": "int32",
@@ -30011,10 +30097,6 @@
                         "format": "date-time",
                         "nullable": true
                     },
-                    "random": {
-                        "type": "string",
-                        "nullable": true
-                    },
                     "store_id": {
                         "type": "integer",
                         "format": "int32",
@@ -30047,7 +30129,6 @@
                     "first_name",
                     "last_name",
                     "last_update",
-                    "random",
                     "store_id"
                 ]
             },
@@ -30106,9 +30187,6 @@
                                 "$ref": "#/components/schemas/PaymentSelectInput"
                             }
                         ]
-                    },
-                    "random": {
-                        "type": "boolean"
                     },
                     "rental": {
                         "oneOf": [
@@ -33088,105 +33166,6 @@
                 },
                 "additionalProperties": false
             },
-            "NestedBytesNullableFilter": {
-                "type": "object",
-                "properties": {
-                    "eq": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
-                    },
-                    "equals": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
-                    },
-                    "in": {
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "format": "byte",
-                            "nullable": true
-                        }
-                    },
-                    "not": {
-                        "oneOf": [
-                            {
-                                "type": "string",
-                                "format": "byte",
-                                "nullable": true
-                            },
-                            {
-                                "$ref": "#/components/schemas/NestedBytesNullableFilter"
-                            }
-                        ],
-                        "nullable": true
-                    },
-                    "notIn": {
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "format": "byte",
-                            "nullable": true
-                        }
-                    }
-                },
-                "additionalProperties": false
-            },
-            "NestedBytesNullableWithAggregatesFilter": {
-                "type": "object",
-                "properties": {
-                    "_count": {
-                        "$ref": "#/components/schemas/NestedIntNullableFilter"
-                    },
-                    "_max": {
-                        "$ref": "#/components/schemas/NestedBytesNullableFilter"
-                    },
-                    "_min": {
-                        "$ref": "#/components/schemas/NestedBytesNullableFilter"
-                    },
-                    "eq": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
-                    },
-                    "equals": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
-                    },
-                    "in": {
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "format": "byte",
-                            "nullable": true
-                        }
-                    },
-                    "not": {
-                        "oneOf": [
-                            {
-                                "type": "string",
-                                "format": "byte",
-                                "nullable": true
-                            },
-                            {
-                                "$ref": "#/components/schemas/NestedBytesNullableWithAggregatesFilter"
-                            }
-                        ],
-                        "nullable": true
-                    },
-                    "notIn": {
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "format": "byte",
-                            "nullable": true
-                        }
-                    }
-                },
-                "additionalProperties": false
-            },
             "NestedDateTimeFilter": {
                 "type": "object",
                 "properties": {
@@ -34281,17 +34260,6 @@
                     },
                     "startsWith": {
                         "type": "string"
-                    }
-                },
-                "additionalProperties": false
-            },
-            "NullableBytesFieldUpdateOperationsInput": {
-                "type": "object",
-                "properties": {
-                    "set": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -35403,7 +35371,6 @@
                                 "last_name",
                                 "last_update",
                                 "password",
-                                "picture",
                                 "staff_id",
                                 "store_id",
                                 "username"
@@ -35423,7 +35390,6 @@
                                 "last_name",
                                 "last_update",
                                 "password",
-                                "picture",
                                 "staff_id",
                                 "store_id",
                                 "username"
@@ -35443,7 +35409,6 @@
                                 "last_name",
                                 "last_update",
                                 "password",
-                                "picture",
                                 "staff_id",
                                 "store_id",
                                 "username"
@@ -35523,10 +35488,6 @@
                         "type": "integer",
                         "format": "int32"
                     },
-                    "picture": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
                     "staff_id": {
                         "type": "integer",
                         "format": "int32"
@@ -35584,7 +35545,6 @@
                                 "last_name",
                                 "last_update",
                                 "password",
-                                "picture",
                                 "staff_id",
                                 "store_id",
                                 "username"
@@ -35604,7 +35564,6 @@
                                 "last_name",
                                 "last_update",
                                 "password",
-                                "picture",
                                 "staff_id",
                                 "store_id",
                                 "username"
@@ -35624,7 +35583,6 @@
                                 "last_name",
                                 "last_update",
                                 "password",
-                                "picture",
                                 "staff_id",
                                 "store_id",
                                 "username"
@@ -35663,9 +35621,6 @@
                         "type": "boolean"
                     },
                     "password": {
-                        "type": "boolean"
-                    },
-                    "picture": {
                         "type": "boolean"
                     },
                     "staff_id": {
@@ -35722,11 +35677,6 @@
                     },
                     "password": {
                         "type": "string",
-                        "nullable": true
-                    },
-                    "picture": {
-                        "type": "string",
-                        "format": "byte",
                         "nullable": true
                     },
                     "staff_id": {
@@ -35791,11 +35741,6 @@
                         "type": "string",
                         "nullable": true
                     },
-                    "picture": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
-                    },
                     "staff_id": {
                         "type": "integer",
                         "format": "int32",
@@ -35846,11 +35791,6 @@
                         "type": "string",
                         "nullable": true
                     },
-                    "picture": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
-                    },
                     "staff_id": {
                         "type": "integer",
                         "format": "int32",
@@ -35890,7 +35830,6 @@
                     "last_name",
                     "last_update",
                     "password",
-                    "picture",
                     "staff_id",
                     "store_id",
                     "username"
@@ -35945,9 +35884,6 @@
                                 "$ref": "#/components/schemas/PaymentSelectInput"
                             }
                         ]
-                    },
-                    "picture": {
-                        "type": "boolean"
                     },
                     "rental": {
                         "oneOf": [
@@ -36714,15 +36650,6 @@
                     }
                 },
                 "additionalProperties": false
-            },
-            "TransactionIsolationLevel": {
-                "type": "string",
-                "enum": [
-                    "ReadUncommitted",
-                    "ReadCommitted",
-                    "RepeatableRead",
-                    "Serializable"
-                ]
             },
             "_ErrorResponse": {
                 "type": "object",
@@ -39885,6 +39812,9 @@
                     },
                     "name": {
                         "type": "string"
+                    },
+                    "sdgfdg": {
+                        "type": "string"
                     }
                 },
                 "additionalProperties": false
@@ -39909,6 +39839,9 @@
                     },
                     "name": {
                         "$ref": "#/components/schemas/SortOrder"
+                    },
+                    "sdgfdg": {
+                        "$ref": "#/components/schemas/SortOrder"
                     }
                 },
                 "additionalProperties": false
@@ -39916,7 +39849,8 @@
             "categoryCreateInput": {
                 "type": "object",
                 "required": [
-                    "name"
+                    "name",
+                    "sdgfdg"
                 ],
                 "properties": {
                     "film_category": {
@@ -39928,6 +39862,9 @@
                     },
                     "name": {
                         "type": "string"
+                    },
+                    "sdgfdg": {
+                        "type": "string"
                     }
                 },
                 "additionalProperties": false
@@ -39935,7 +39872,8 @@
             "categoryCreateManyInput": {
                 "type": "object",
                 "required": [
-                    "name"
+                    "name",
+                    "sdgfdg"
                 ],
                 "properties": {
                     "category_id": {
@@ -39947,6 +39885,9 @@
                         "format": "date-time"
                     },
                     "name": {
+                        "type": "string"
+                    },
+                    "sdgfdg": {
                         "type": "string"
                     }
                 },
@@ -39986,7 +39927,8 @@
             "categoryCreateWithoutFilm_categoryInput": {
                 "type": "object",
                 "required": [
-                    "name"
+                    "name",
+                    "sdgfdg"
                 ],
                 "properties": {
                     "last_update": {
@@ -39994,6 +39936,9 @@
                         "format": "date-time"
                     },
                     "name": {
+                        "type": "string"
+                    },
+                    "sdgfdg": {
                         "type": "string"
                     }
                 },
@@ -40010,6 +39955,9 @@
                     },
                     "name": {
                         "$ref": "#/components/schemas/SortOrder"
+                    },
+                    "sdgfdg": {
+                        "$ref": "#/components/schemas/SortOrder"
                     }
                 },
                 "additionalProperties": false
@@ -40024,6 +39972,9 @@
                         "$ref": "#/components/schemas/SortOrder"
                     },
                     "name": {
+                        "$ref": "#/components/schemas/SortOrder"
+                    },
+                    "sdgfdg": {
                         "$ref": "#/components/schemas/SortOrder"
                     }
                 },
@@ -40055,6 +40006,9 @@
                     },
                     "name": {
                         "$ref": "#/components/schemas/SortOrder"
+                    },
+                    "sdgfdg": {
+                        "$ref": "#/components/schemas/SortOrder"
                     }
                 },
                 "additionalProperties": false
@@ -40072,6 +40026,9 @@
                         "$ref": "#/components/schemas/SortOrder"
                     },
                     "name": {
+                        "$ref": "#/components/schemas/SortOrder"
+                    },
+                    "sdgfdg": {
                         "$ref": "#/components/schemas/SortOrder"
                     }
                 },
@@ -40143,6 +40100,16 @@
                                 "type": "string"
                             }
                         ]
+                    },
+                    "sdgfdg": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/StringWithAggregatesFilter"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
                     }
                 },
                 "additionalProperties": false
@@ -40182,6 +40149,16 @@
                                 "$ref": "#/components/schemas/StringFieldUpdateOperationsInput"
                             }
                         ]
+                    },
+                    "sdgfdg": {
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "$ref": "#/components/schemas/StringFieldUpdateOperationsInput"
+                            }
+                        ]
                     }
                 },
                 "additionalProperties": false
@@ -40201,6 +40178,16 @@
                         ]
                     },
                     "name": {
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "$ref": "#/components/schemas/StringFieldUpdateOperationsInput"
+                            }
+                        ]
+                    },
+                    "sdgfdg": {
                         "oneOf": [
                             {
                                 "type": "string"
@@ -40249,6 +40236,16 @@
                         ]
                     },
                     "name": {
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "$ref": "#/components/schemas/StringFieldUpdateOperationsInput"
+                            }
+                        ]
+                    },
+                    "sdgfdg": {
                         "oneOf": [
                             {
                                 "type": "string"
@@ -40338,6 +40335,16 @@
                         ]
                     },
                     "name": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/StringFilter"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "sdgfdg": {
                         "oneOf": [
                             {
                                 "$ref": "#/components/schemas/StringFilter"
@@ -41919,9 +41926,6 @@
                         },
                         "nullable": true
                     },
-                    "random": {
-                        "type": "string"
-                    },
                     "rental": {
                         "type": "array",
                         "items": {
@@ -41984,9 +41988,6 @@
                     "last_update": {
                         "$ref": "#/components/schemas/SortOrder"
                     },
-                    "random": {
-                        "$ref": "#/components/schemas/SortOrder"
-                    },
                     "store_id": {
                         "$ref": "#/components/schemas/SortOrder"
                     }
@@ -41998,7 +41999,6 @@
                 "required": [
                     "first_name",
                     "last_name",
-                    "random",
                     "store_id",
                     "address"
                 ],
@@ -42036,9 +42036,6 @@
                     "payment": {
                         "$ref": "#/components/schemas/paymentCreateNestedManyWithoutCustomerInput"
                     },
-                    "random": {
-                        "type": "string"
-                    },
                     "rental": {
                         "$ref": "#/components/schemas/rentalCreateNestedManyWithoutCustomerInput"
                     },
@@ -42054,7 +42051,6 @@
                 "required": [
                     "first_name",
                     "last_name",
-                    "random",
                     "store_id"
                 ],
                 "properties": {
@@ -42088,9 +42084,6 @@
                         "type": "string",
                         "format": "date-time",
                         "nullable": true
-                    },
-                    "random": {
-                        "type": "string"
                     },
                     "store_id": {
                         "type": "integer",
@@ -42130,7 +42123,6 @@
                     "address_id",
                     "first_name",
                     "last_name",
-                    "random",
                     "store_id"
                 ],
                 "properties": {
@@ -42168,9 +42160,6 @@
                         "type": "string",
                         "format": "date-time",
                         "nullable": true
-                    },
-                    "random": {
-                        "type": "string"
                     },
                     "store_id": {
                         "type": "integer",
@@ -42310,7 +42299,6 @@
                 "required": [
                     "first_name",
                     "last_name",
-                    "random",
                     "store_id"
                 ],
                 "properties": {
@@ -42344,9 +42332,6 @@
                     "payment": {
                         "$ref": "#/components/schemas/paymentCreateNestedManyWithoutCustomerInput"
                     },
-                    "random": {
-                        "type": "string"
-                    },
                     "rental": {
                         "$ref": "#/components/schemas/rentalCreateNestedManyWithoutCustomerInput"
                     },
@@ -42362,7 +42347,6 @@
                 "required": [
                     "first_name",
                     "last_name",
-                    "random",
                     "store_id",
                     "address"
                 ],
@@ -42397,9 +42381,6 @@
                         "format": "date-time",
                         "nullable": true
                     },
-                    "random": {
-                        "type": "string"
-                    },
                     "rental": {
                         "$ref": "#/components/schemas/rentalCreateNestedManyWithoutCustomerInput"
                     },
@@ -42415,7 +42396,6 @@
                 "required": [
                     "first_name",
                     "last_name",
-                    "random",
                     "store_id",
                     "address"
                 ],
@@ -42452,9 +42432,6 @@
                     },
                     "payment": {
                         "$ref": "#/components/schemas/paymentCreateNestedManyWithoutCustomerInput"
-                    },
-                    "random": {
-                        "type": "string"
                     },
                     "store_id": {
                         "type": "integer",
@@ -42493,9 +42470,6 @@
                     "last_update": {
                         "$ref": "#/components/schemas/SortOrder"
                     },
-                    "random": {
-                        "$ref": "#/components/schemas/SortOrder"
-                    },
                     "store_id": {
                         "$ref": "#/components/schemas/SortOrder"
                     }
@@ -42530,9 +42504,6 @@
                         "$ref": "#/components/schemas/SortOrder"
                     },
                     "last_update": {
-                        "$ref": "#/components/schemas/SortOrder"
-                    },
-                    "random": {
                         "$ref": "#/components/schemas/SortOrder"
                     },
                     "store_id": {
@@ -42595,9 +42566,6 @@
                     "last_update": {
                         "$ref": "#/components/schemas/SortOrder"
                     },
-                    "random": {
-                        "$ref": "#/components/schemas/SortOrder"
-                    },
                     "store_id": {
                         "$ref": "#/components/schemas/SortOrder"
                     }
@@ -42639,9 +42607,6 @@
                     },
                     "payment": {
                         "$ref": "#/components/schemas/paymentOrderByRelationAggregateInput"
-                    },
-                    "random": {
-                        "$ref": "#/components/schemas/SortOrder"
                     },
                     "rental": {
                         "$ref": "#/components/schemas/rentalOrderByRelationAggregateInput"
@@ -42787,16 +42752,6 @@
                             }
                         ],
                         "nullable": true
-                    },
-                    "random": {
-                        "oneOf": [
-                            {
-                                "$ref": "#/components/schemas/StringFilter"
-                            },
-                            {
-                                "type": "string"
-                            }
-                        ]
                     },
                     "store_id": {
                         "oneOf": [
@@ -42948,16 +42903,6 @@
                         ],
                         "nullable": true
                     },
-                    "random": {
-                        "oneOf": [
-                            {
-                                "$ref": "#/components/schemas/StringWithAggregatesFilter"
-                            },
-                            {
-                                "type": "string"
-                            }
-                        ]
-                    },
                     "store_id": {
                         "oneOf": [
                             {
@@ -43078,16 +43023,6 @@
                     "payment": {
                         "$ref": "#/components/schemas/paymentUpdateManyWithoutCustomerNestedInput"
                     },
-                    "random": {
-                        "oneOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "$ref": "#/components/schemas/StringFieldUpdateOperationsInput"
-                            }
-                        ]
-                    },
                     "rental": {
                         "$ref": "#/components/schemas/rentalUpdateManyWithoutCustomerNestedInput"
                     },
@@ -43186,16 +43121,6 @@
                             }
                         ],
                         "nullable": true
-                    },
-                    "random": {
-                        "oneOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "$ref": "#/components/schemas/StringFieldUpdateOperationsInput"
-                            }
-                        ]
                     },
                     "store_id": {
                         "oneOf": [
@@ -43509,16 +43434,6 @@
                     "payment": {
                         "$ref": "#/components/schemas/paymentUpdateManyWithoutCustomerNestedInput"
                     },
-                    "random": {
-                        "oneOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "$ref": "#/components/schemas/StringFieldUpdateOperationsInput"
-                            }
-                        ]
-                    },
                     "rental": {
                         "$ref": "#/components/schemas/rentalUpdateManyWithoutCustomerNestedInput"
                     },
@@ -43620,16 +43535,6 @@
                             }
                         ],
                         "nullable": true
-                    },
-                    "random": {
-                        "oneOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "$ref": "#/components/schemas/StringFieldUpdateOperationsInput"
-                            }
-                        ]
                     },
                     "rental": {
                         "$ref": "#/components/schemas/rentalUpdateManyWithoutCustomerNestedInput"
@@ -43735,16 +43640,6 @@
                     },
                     "payment": {
                         "$ref": "#/components/schemas/paymentUpdateManyWithoutCustomerNestedInput"
-                    },
-                    "random": {
-                        "oneOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "$ref": "#/components/schemas/StringFieldUpdateOperationsInput"
-                            }
-                        ]
                     },
                     "store_id": {
                         "oneOf": [
@@ -43960,16 +43855,6 @@
                     },
                     "payment": {
                         "$ref": "#/components/schemas/PaymentListRelationFilter"
-                    },
-                    "random": {
-                        "oneOf": [
-                            {
-                                "$ref": "#/components/schemas/StringFilter"
-                            },
-                            {
-                                "type": "string"
-                            }
-                        ]
                     },
                     "rental": {
                         "$ref": "#/components/schemas/RentalListRelationFilter"
@@ -54608,11 +54493,6 @@
                         },
                         "nullable": true
                     },
-                    "picture": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
-                    },
                     "rental": {
                         "type": "array",
                         "items": {
@@ -54676,9 +54556,6 @@
                     "password": {
                         "$ref": "#/components/schemas/SortOrder"
                     },
-                    "picture": {
-                        "$ref": "#/components/schemas/SortOrder"
-                    },
                     "staff_id": {
                         "$ref": "#/components/schemas/SortOrder"
                     },
@@ -54728,11 +54605,6 @@
                     "payment": {
                         "$ref": "#/components/schemas/paymentCreateNestedManyWithoutStaffInput"
                     },
-                    "picture": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
-                    },
                     "rental": {
                         "$ref": "#/components/schemas/rentalCreateNestedManyWithoutStaffInput"
                     },
@@ -54777,11 +54649,6 @@
                     },
                     "password": {
                         "type": "string",
-                        "nullable": true
-                    },
-                    "picture": {
-                        "type": "string",
-                        "format": "byte",
                         "nullable": true
                     },
                     "staff_id": {
@@ -54856,11 +54723,6 @@
                     },
                     "password": {
                         "type": "string",
-                        "nullable": true
-                    },
-                    "picture": {
-                        "type": "string",
-                        "format": "byte",
                         "nullable": true
                     },
                     "staff_id": {
@@ -55067,11 +54929,6 @@
                     "payment": {
                         "$ref": "#/components/schemas/paymentCreateNestedManyWithoutStaffInput"
                     },
-                    "picture": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
-                    },
                     "rental": {
                         "$ref": "#/components/schemas/rentalCreateNestedManyWithoutStaffInput"
                     },
@@ -55120,11 +54977,6 @@
                     },
                     "password": {
                         "type": "string",
-                        "nullable": true
-                    },
-                    "picture": {
-                        "type": "string",
-                        "format": "byte",
                         "nullable": true
                     },
                     "rental": {
@@ -55180,11 +55032,6 @@
                     "payment": {
                         "$ref": "#/components/schemas/paymentCreateNestedManyWithoutStaffInput"
                     },
-                    "picture": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
-                    },
                     "store": {
                         "$ref": "#/components/schemas/storeCreateNestedOneWithoutStaffInput"
                     },
@@ -55235,11 +55082,6 @@
                     "payment": {
                         "$ref": "#/components/schemas/paymentCreateNestedManyWithoutStaffInput"
                     },
-                    "picture": {
-                        "type": "string",
-                        "format": "byte",
-                        "nullable": true
-                    },
                     "rental": {
                         "$ref": "#/components/schemas/rentalCreateNestedManyWithoutStaffInput"
                     },
@@ -55277,9 +55119,6 @@
                     "password": {
                         "$ref": "#/components/schemas/SortOrder"
                     },
-                    "picture": {
-                        "$ref": "#/components/schemas/SortOrder"
-                    },
                     "staff_id": {
                         "$ref": "#/components/schemas/SortOrder"
                     },
@@ -55314,9 +55153,6 @@
                         "$ref": "#/components/schemas/SortOrder"
                     },
                     "password": {
-                        "$ref": "#/components/schemas/SortOrder"
-                    },
-                    "picture": {
                         "$ref": "#/components/schemas/SortOrder"
                     },
                     "staff_id": {
@@ -55379,9 +55215,6 @@
                     "password": {
                         "$ref": "#/components/schemas/SortOrder"
                     },
-                    "picture": {
-                        "$ref": "#/components/schemas/SortOrder"
-                    },
                     "staff_id": {
                         "$ref": "#/components/schemas/SortOrder"
                     },
@@ -55423,9 +55256,6 @@
                     },
                     "payment": {
                         "$ref": "#/components/schemas/paymentOrderByRelationAggregateInput"
-                    },
-                    "picture": {
-                        "$ref": "#/components/schemas/SortOrder"
                     },
                     "rental": {
                         "$ref": "#/components/schemas/rentalOrderByRelationAggregateInput"
@@ -55551,19 +55381,6 @@
                             },
                             {
                                 "type": "string",
-                                "nullable": true
-                            }
-                        ],
-                        "nullable": true
-                    },
-                    "picture": {
-                        "oneOf": [
-                            {
-                                "$ref": "#/components/schemas/BytesNullableFilter"
-                            },
-                            {
-                                "type": "string",
-                                "format": "byte",
                                 "nullable": true
                             }
                         ],
@@ -55715,19 +55532,6 @@
                         ],
                         "nullable": true
                     },
-                    "picture": {
-                        "oneOf": [
-                            {
-                                "$ref": "#/components/schemas/BytesNullableWithAggregatesFilter"
-                            },
-                            {
-                                "type": "string",
-                                "format": "byte",
-                                "nullable": true
-                            }
-                        ],
-                        "nullable": true
-                    },
                     "staff_id": {
                         "oneOf": [
                             {
@@ -55852,19 +55656,6 @@
                     "payment": {
                         "$ref": "#/components/schemas/paymentUpdateManyWithoutStaffNestedInput"
                     },
-                    "picture": {
-                        "oneOf": [
-                            {
-                                "type": "string",
-                                "format": "byte",
-                                "nullable": true
-                            },
-                            {
-                                "$ref": "#/components/schemas/NullableBytesFieldUpdateOperationsInput"
-                            }
-                        ],
-                        "nullable": true
-                    },
                     "rental": {
                         "$ref": "#/components/schemas/rentalUpdateManyWithoutStaffNestedInput"
                     },
@@ -55959,19 +55750,6 @@
                             },
                             {
                                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
-                            }
-                        ],
-                        "nullable": true
-                    },
-                    "picture": {
-                        "oneOf": [
-                            {
-                                "type": "string",
-                                "format": "byte",
-                                "nullable": true
-                            },
-                            {
-                                "$ref": "#/components/schemas/NullableBytesFieldUpdateOperationsInput"
                             }
                         ],
                         "nullable": true
@@ -56305,19 +56083,6 @@
                     "payment": {
                         "$ref": "#/components/schemas/paymentUpdateManyWithoutStaffNestedInput"
                     },
-                    "picture": {
-                        "oneOf": [
-                            {
-                                "type": "string",
-                                "format": "byte",
-                                "nullable": true
-                            },
-                            {
-                                "$ref": "#/components/schemas/NullableBytesFieldUpdateOperationsInput"
-                            }
-                        ],
-                        "nullable": true
-                    },
                     "rental": {
                         "$ref": "#/components/schemas/rentalUpdateManyWithoutStaffNestedInput"
                     },
@@ -56415,19 +56180,6 @@
                             },
                             {
                                 "$ref": "#/components/schemas/NullableStringFieldUpdateOperationsInput"
-                            }
-                        ],
-                        "nullable": true
-                    },
-                    "picture": {
-                        "oneOf": [
-                            {
-                                "type": "string",
-                                "format": "byte",
-                                "nullable": true
-                            },
-                            {
-                                "$ref": "#/components/schemas/NullableBytesFieldUpdateOperationsInput"
                             }
                         ],
                         "nullable": true
@@ -56536,19 +56288,6 @@
                     "payment": {
                         "$ref": "#/components/schemas/paymentUpdateManyWithoutStaffNestedInput"
                     },
-                    "picture": {
-                        "oneOf": [
-                            {
-                                "type": "string",
-                                "format": "byte",
-                                "nullable": true
-                            },
-                            {
-                                "$ref": "#/components/schemas/NullableBytesFieldUpdateOperationsInput"
-                            }
-                        ],
-                        "nullable": true
-                    },
                     "store": {
                         "$ref": "#/components/schemas/storeUpdateOneWithoutStaffNestedInput"
                     },
@@ -56649,19 +56388,6 @@
                     },
                     "payment": {
                         "$ref": "#/components/schemas/paymentUpdateManyWithoutStaffNestedInput"
-                    },
-                    "picture": {
-                        "oneOf": [
-                            {
-                                "type": "string",
-                                "format": "byte",
-                                "nullable": true
-                            },
-                            {
-                                "$ref": "#/components/schemas/NullableBytesFieldUpdateOperationsInput"
-                            }
-                        ],
-                        "nullable": true
                     },
                     "rental": {
                         "$ref": "#/components/schemas/rentalUpdateManyWithoutStaffNestedInput"
@@ -56881,19 +56607,6 @@
                     },
                     "payment": {
                         "$ref": "#/components/schemas/PaymentListRelationFilter"
-                    },
-                    "picture": {
-                        "oneOf": [
-                            {
-                                "$ref": "#/components/schemas/BytesNullableFilter"
-                            },
-                            {
-                                "type": "string",
-                                "format": "byte",
-                                "nullable": true
-                            }
-                        ],
-                        "nullable": true
                     },
                     "rental": {
                         "$ref": "#/components/schemas/RentalListRelationFilter"

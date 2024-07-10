@@ -5,77 +5,110 @@ import (
 	"fmt"
 	"strings"
 
-	neurelo_sdk "github.com/neurelo-public/neurelo-sdk-examples/go-sdk"
+	neurelo_sdk "github.com/neurelo-public/neurelo-sdk-examples/go/pkg/neurelo_sdk"
 	"github.com/neurelo-public/neurelo-sdk-examples/go/src/lib"
 )
 
-/* Actor Service */
-
 func ReadAllActorSvc(req GetAllActorRequest) *[]neurelo_sdk.Actor {
+    ctx := context.Background()
+
     skip := (req.Page-1)*12
     take := 12
     trimmed_search := strings.TrimSpace(req.Search)
 
-    first_name := neurelo_sdk.ActorWhereInputFirstName{}
     filter := neurelo_sdk.ActorWhereInput{}
 
     if (trimmed_search != "") {
-        first_name.StringFilter = &neurelo_sdk.StringFilter{
+        first_name := &neurelo_sdk.ActorWhereInput_FirstName{}
+        first_name.FromStringFilter(neurelo_sdk.StringFilter{
             Contains: &trimmed_search,
-        }
-        filter.OR = []neurelo_sdk.ActorWhereInput{
+        })
+
+        last_name := &neurelo_sdk.ActorWhereInput_LastName{}
+        last_name.FromStringFilter(neurelo_sdk.StringFilter{
+            Contains: &trimmed_search,
+        })
+
+        filter.OR = &[]neurelo_sdk.ActorWhereInput{
             {
-                FirstName: &first_name,
+                FirstName: first_name,
             },
             {
-                LastName: &first_name,
+                LastName: last_name,
             },
         }
     }
 
-    find_actor := lib.NeureloClient.ActorAPI.FindActor(context.Background()).Take(take).Skip(skip).Filter(filter);
+    parameters := &neurelo_sdk.FindActorParams{
+        Take: &take,
+        Skip: &skip,
+        Filter: &filter,
+    }
 
-    res, _, err := find_actor.Execute()
+    res, err := lib.ApiClient.FindActor(ctx, parameters)
     if err != nil {
-        fmt.Println(err)
-        return nil
+        panic(err)
     }
 
-	return &res.Data
+    parsed_res, err := neurelo_sdk.ParseFindActorResponse(res)
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Println(string(parsed_res.Body))
+
+	return &parsed_res.JSON200.Data
 }
 
-func GetTotalActorsSvc(req GetAllActorRequest) *int {
+func GetTotalActorsSvc(req GetAllActorRequest) *int32 {
+    ctx := context.Background()
+
     trimmed_search := strings.TrimSpace(req.Search)
-    select_count := neurelo_sdk.ActorAggregateInput{
-        Count: []string{
-            "actor_id",
+    
+    filter := neurelo_sdk.ActorWhereInput{}
+    select_ := neurelo_sdk.ActorAggregateInput{
+        Count: &[]neurelo_sdk.ActorAggregateInputCount{
+            "_all",
         },
     }
 
-    first_name := neurelo_sdk.ActorWhereInputFirstName{}
-    filter := neurelo_sdk.ActorWhereInput{}
-
     if (trimmed_search != "") {
-        first_name.StringFilter = &neurelo_sdk.StringFilter{
+        first_name := &neurelo_sdk.ActorWhereInput_FirstName{}
+        first_name.FromStringFilter(neurelo_sdk.StringFilter{
             Contains: &trimmed_search,
-        }
-        filter.OR = []neurelo_sdk.ActorWhereInput{
+        })
+
+        last_name := &neurelo_sdk.ActorWhereInput_LastName{}
+        last_name.FromStringFilter(neurelo_sdk.StringFilter{
+            Contains: &trimmed_search,
+        })
+
+        filter.OR = &[]neurelo_sdk.ActorWhereInput{
             {
-                FirstName: &first_name,
+                FirstName: first_name,
             },
             {
-                LastName: &first_name,
+                LastName: last_name,
             },
         }
     }
 
-    find_actor := lib.NeureloClient.ActorAPI.AggregateByActor(context.Background()).Select_(select_count).Filter(filter);
+    parameters := &neurelo_sdk.AggregateByActorParams{
+        Select: select_,
+        Filter: &filter,
+    }
 
-    res, _, err := find_actor.Execute()
+    res, err := lib.ApiClient.AggregateByActor(ctx, parameters)
     if err != nil {
-        fmt.Println(err)
-        return nil
+        panic(err)
     }
 
-	return res.Data.Count.ActorId
+    parsed_res, err := neurelo_sdk.ParseAggregateByActorResponse(res)
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Println(string(parsed_res.Body))
+
+	return parsed_res.JSON200.Data.Count.All
 }

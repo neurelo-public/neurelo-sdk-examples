@@ -43,7 +43,7 @@ func main() {
 	}))
 
 	// Setup client
-	lib.SetupClient()
+	lib.SetupApiClient()
 
 	// Register all routes
 	router.SetupRoutes(app)
