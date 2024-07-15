@@ -18,11 +18,6 @@ mkdir -p ./pkg/neurelo
 unzip ./specs/neurelo-sdk-golang-cmt_621453.zip -d ./pkg/neurelo_sdk
 ```
 
-```sh
-# Replace module name with your neurelo_sdk name.
-go mod edit -replace <YOUR_MODULE_URL>=./pkg/neurelo_sdk
-```
-
 ### Starting server
 
 ```bash
@@ -34,4 +29,16 @@ go run main.go
 # For development, First install go-air locally.
 # Air is a development tool for Go apps. (https://github.com/air-verse/air)
 air
+```
+
+### Usage:
+
+```go
+// main.go
+package main
+
+import (
+    // Replace the <project_root> with your project url. eg: github.com/neurelo-public/neurelo-sdk
+    neurelo_sdk "<project_root>/pkg/neurelo_sdk"
+)
 ```
